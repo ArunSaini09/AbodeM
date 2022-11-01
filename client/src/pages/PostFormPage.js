@@ -18,6 +18,7 @@ function PostFormPage(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(JSON.stringify(content));
     try {
       let response = await fetch("/api/micro_posts/form", {
         method: "POST",
@@ -38,7 +39,7 @@ function PostFormPage(props) {
       setError(true);
     }    
 
-    console.log(content);
+    console.log(JSON.stringify(content));
   };
 
   if (success) return <Navigate to="/" />;
@@ -51,7 +52,7 @@ function PostFormPage(props) {
 
           <ul className = "list-group">
             <li className="list-group-item">Address: {props.values.address}</li>
-            <li className="list-group-item">Rent: {props.values.rent}</li>
+            <li className="list-group-item">Rent: {props.values.rent} Rent Due: {props.values.rentDueDate}</li>
             <li className="list-group-item">Mortgage: {props.values.mortgage}</li>
             <li className="list-group-item">Electric: {props.values.electric}</li>
             <li className="list-group-item">Gas: {props.values.gas}</li>

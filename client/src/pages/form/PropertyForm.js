@@ -10,6 +10,7 @@ function PropertyForm() {
     const [address, setAddress] = useState("");
 
     const [rent, setRent] = useState("");
+    const [rentDueDate, setRentDueDate] = useState("");
     const [tenanted, setTenanted] = useState(false);
     const [mortgage, setMortgage] = useState("");
 
@@ -33,6 +34,8 @@ function PropertyForm() {
             setAddress(e.target.value);
         } else if(input ==="rent"){
             setRent(Number(e.target.value));
+        } else if(input==="rent-due-date"){
+            setRentDueDate(Number(e.target.value));
         } else if(input ==="tenanted"){
             setTenanted(!tenanted);
         }else if(input ==="mortgage"){
@@ -46,7 +49,7 @@ function PropertyForm() {
         } 
     }
 
-    const values = {step, address, rent, tenanted, mortgage, electric, gas, water};
+    const values = {step, address, rent, rentDueDate, tenanted, mortgage, electric, gas, water};
 
     if(step === 1){
         return(

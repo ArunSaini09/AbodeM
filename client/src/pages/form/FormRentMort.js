@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 function FormInfo(props){
     
@@ -14,30 +14,64 @@ function FormInfo(props){
 
     return(
         <div>
-            <div>
+            <div className="mb-3">
                 <label htmlFor="rented">Is the property currently tenanted? </label>
                 <input type="checkbox" name="rented" id="rented" onChange={props.handleChange("tenanted")} checked={props.values.tenanted}/>
             </div>
 
              
             {props.values.tenanted ? 
-                (<input
-                type="text"
-                placeholder="Enter rent..."
-                defaultValue={props.values.rent}
-                className="form-control"
-                onChange={props.handleChange("rent")}
-                autoFocus
-                />) : (<></>)
+                (
+                <div className="mb-4">
+                    <div className="row">
+                        <div className="col-lg-5">
+                            <div className="input-group">
+                                <div className="input-group-prepend ">
+                                    <span className="input-group-text rounded-0">$</span>
+                                </div>
+                                
+                                    <input
+                                    type="text"
+                                    placeholder="Enter rent..."
+                                    defaultValue={props.values.rent}
+                                    className="form-control rounded-0"
+                                    onChange={props.handleChange("rent")}
+                                    autoFocus
+                                    aria-label="Amount (to the nearest dollar)"
+                                    />
+                            
+                            </div>
+                        </div>
+                        <div className="col-lg-2">
+                            due monthly on the 
+                        </div>
+                        <div className="col-lg-5"> 
+                                
+                            <input
+                            type="text"
+                            placeholder="15"
+                            className="form-control rounded-0"
+                            defaultValue={props.values.rentDueDate}
+                            onChange={props.handleChange("rent-due-date")}
+                            />
+                        </div>
+                    </div>
+                </div>) 
+                
+                : (<></>)
             }
-            <input
-            type="text"
-            placeholder="Enter mortgage..."
-            defaultValue={props.values.mortgage}
-            className="form-control"
-            onChange={props.handleChange("mortgage")}
-            autoFocus
-            />
+            <div className="input-group">
+                <div className="input-group-prepend ">
+                    <span className="input-group-text rounded-0">$</span>
+                </div>
+                <input
+                type="text"
+                placeholder="Enter mortgage..."
+                defaultValue={props.values.mortgage}
+                className="form-control"
+                onChange={props.handleChange("mortgage")}
+                />
+            </div>
 
             <button
             onClick={handleClickPrev}  
@@ -50,6 +84,7 @@ function FormInfo(props){
             className="btn btn-primary">
             Continue
             </button>
+
         </div>
     )
 }
