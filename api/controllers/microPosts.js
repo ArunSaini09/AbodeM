@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
   Property.findAll({}).then((allHouses) => res.json(allHouses));
 });
 
-router.post("/", (req, res) => {
+/* router.post("/", (req, res) => {
   let { content } = req.body;
 
   MicroPost.create({ content })
@@ -30,12 +30,13 @@ router.post("/", (req, res) => {
     .catch((err) => {
       res.status(400).json(err);
     });
-});
+}); */
 
 router.post("/form", (req, res) => {
-  let { address, electric, gas, mortgage, rent, step, tenanted, water } = req.body;
+  let { address, electric, gas, mortgage, rent, rentDueDate, step, tenanted, water } = req.body;
+  
 
-  Property.create({ address, electric, gas, mortgage, rent, step, tenanted, water })
+  Property.create({ address, electric, gas, mortgage, rent, rentDueDate, step, tenanted, water })
     .then((newPost) => {
       res.status(201).json(newPost);
     })
@@ -54,7 +55,7 @@ router.get("/house/:id", (req, res) => {
   });
 });
 
-router.get("/:id", (req, res) => {
+/* router.get("/:id", (req, res) => {
   const { id } = req.params;
   MicroPost.findByPk(id).then((mpost) => {
     if (!mpost) {
@@ -63,7 +64,7 @@ router.get("/:id", (req, res) => {
 
     res.json(mpost);
   });
-});
+}); */
 
 router.put("/:id", (req, res) => {
   const { id } = req.params;
