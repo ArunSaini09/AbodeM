@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import DeleteButton from "./DeleteButton"
 
 
 
@@ -9,15 +10,16 @@ const tempImgUrl = "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?outp
   return (
     <div className="col-10 col-md-8 col-lg-7">
       <div className="card mb-4 shadow">
-        <div className="card-body card-text">
+        
             <img src={tempImgUrl} 
-                class="img-fluid"
-                alt="House"/>
-        </div>
+                className="img-fluid card-img-top"
+                alt="House"
+              />
+        
 
-        <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush">
                 <li class="list-group-item">          
-                    Address: <Link to={"/posts/" + id}>{address}</Link>
+                    <Link to={"/posts/" + id}>{address}</Link>
                 </li>
             
                 <div class="container">
@@ -27,9 +29,13 @@ const tempImgUrl = "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?outp
                     </div>
                 </div>
 
-        </ul>
+            </ul>
 
-        <div className="card-footer small text-muted text-end">Other Info</div>
+        <div className="card-footer small p-0">
+          <div className="w-100">
+            <DeleteButton id ={id}/>
+          </div>
+        </div>
         {/* <div className="card-footer small text-muted text-end">{createdAt}</div> */}
       </div>
     </div>

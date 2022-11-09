@@ -4,10 +4,7 @@ import ErrorAlert from "../components/ErrorAlert";
 import { useParams } from "react-router-dom";
 import PostsListPage from "./PostsListPage";
 import AddressHeader from "../components/AddressHeader";
-import RentCard from "../components/RentCard";
-import MortgageCard from "../components/MortgageCard";
-import UtilityCard from "../components/UtilityCard";
-
+import PropertyInfoBlock from "../components/PropertyInfoBlock";
 
 function ShowPostPage() {
   const [post, setPost] = useState(null);
@@ -41,35 +38,27 @@ function ShowPostPage() {
       <ErrorAlert details={"Micro post with id=" + params.id + " not found"} />
     );
   if (loading) return <LoadingSpinner />;
-
+  console.log("getting id property data below");
+  console.log(post)
+  
   return (
-    <div className="container">
+    <div>
       <div className="row">
-        <AddressHeader address = {post.address} />
+        <div className="col-10">
+          <AddressHeader address = {post.address} />
+        </div>
+        <div className="col">
+            {/*on click have a new blank propertyInfoBlock rendered,
+            map over post info and create infoBlocks in a state outside this return() and render it with {blah} 
+            then have the state re-rendered with [new propertyInfoBlock, old state name of propertyInfoBlock] after the click */}
+            <button className="btn btn-secondary">+</button>
+        </div>
       </div>
-      <div className="row">
-        <div className="col">
-          <div className="row">
-            <div className="col">
-              <RentCard  rent = {post.rent} rentDueDate = {post.rentDueDate}/>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <MortgageCard mortgage = {post.mortgage}/>
-            </div>
-          </div>   
-        </div>
-        <div className="col">
-          <UtilityCard 
-          electric = {post.electric}
-          gas = {post.gas}
-          water = {post.water}
-          /> 
-        </div>
+      <div>
+        <PropertyInfoBlock post={post}/>
       </div>
     </div>
-  );
+  );  
 }
 
 export default ShowPostPage;
