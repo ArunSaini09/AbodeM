@@ -9,15 +9,19 @@ export default function EditButton(props){
     const updateRent = async (e) => {
         e.preventDefault();
         try{
-            //sent put request
+            //send put request
+            //TODO: use the correct fetch url when backend is set
             const body = {newRent};
             const response = await fetch("/api/micro_posts/house/" + params.id +"/", {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
             })
-            //need to refresh state, to reflect new info
-            
+
+            //TODO:
+            //need to refresh state, to reflect new change
+            //*****HERE*****//
+
         } catch(err){
             console.log(err.message);
         }
@@ -25,7 +29,7 @@ export default function EditButton(props){
 
     return(
     <>    
-        <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
              Edit
         </button>
 

@@ -12,6 +12,7 @@ function PropertyForm() {
     const [rent, setRent] = useState("");
     const [rentDueDate, setRentDueDate] = useState("");
     const [tenanted, setTenanted] = useState(false);
+    
     const [mortgage, setMortgage] = useState("");
 
     const [electric, setElectirc] = useState("");

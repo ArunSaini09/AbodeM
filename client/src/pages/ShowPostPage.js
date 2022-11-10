@@ -10,7 +10,13 @@ function ShowPostPage() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [propertyInfoBlocks, setPropertyInfoBlocks] = useState([]);
   let params = useParams();
+
+  const generateNewPropertyInfoBlock = e => {
+    //place a blank PropertyInfoBlock component, unpack the other components after
+      setPropertyInfoBlocks([<PropertyInfoBlock/>, ...propertyInfoBlocks]);
+  }
 
   useEffect(() => {
     async function getData() {
@@ -38,9 +44,7 @@ function ShowPostPage() {
       <ErrorAlert details={"Micro post with id=" + params.id + " not found"} />
     );
   if (loading) return <LoadingSpinner />;
-  console.log("getting id property data below");
-  console.log(post)
-  
+
   return (
     <div>
       <div className="row">
@@ -48,10 +52,15 @@ function ShowPostPage() {
           <AddressHeader address = {post.address} />
         </div>
         <div className="col">
-            {/*on click have a new blank propertyInfoBlock rendered,
-            map over post info and create infoBlocks in a state outside this return() and render it with {blah} 
-            then have the state re-rendered with [new propertyInfoBlock, old state name of propertyInfoBlock] after the click */}
-            <button className="btn btn-secondary">+</button>
+            {
+            //TODO:
+            /*on click have a new blank propertyInfoBlock rendered ontop of the pre existing ones,
+            map over post info and create infoBlocks in a state outside
+            this return() and render it with {blah} 
+            then have the state re-rendered with [new propertyInfoBlock, 
+            old state name of propertyInfoBlock] after the click */
+            }
+            <button className="btn btn-secondary" onClick ={generateNewPropertyInfoBlock}>+</button>
         </div>
       </div>
       <div>
