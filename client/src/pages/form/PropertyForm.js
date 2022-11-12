@@ -14,6 +14,7 @@ function PropertyForm() {
     const [tenanted, setTenanted] = useState(false);
     
     const [mortgage, setMortgage] = useState("");
+    const [mortDueDate, setMortDueDate] = useState("");
 
     const [electric, setElectirc] = useState("");
     const [gas, setGas] = useState("");
@@ -39,8 +40,10 @@ function PropertyForm() {
             setRentDueDate(Number(e.target.value));
         } else if(input ==="tenanted"){
             setTenanted(!tenanted);
-        }else if(input ==="mortgage"){
+        } else if(input ==="mortgage"){
             setMortgage(Number(e.target.value));
+        } else if(input==="mort-due-date"){
+            setMortDueDate(Number(e.target.value));
         } else if(input ==="electric"){
             setElectirc(Number(e.target.value));
         } else if(input ==="gas"){
@@ -50,7 +53,7 @@ function PropertyForm() {
         } 
     }
 
-    const values = {step, address, rent, rentDueDate, tenanted, mortgage, electric, gas, water};
+    const values = {step, address, rent, rentDueDate, tenanted, mortgage, mortDueDate, electric, gas, water};
 
     if(step === 1){
         return(

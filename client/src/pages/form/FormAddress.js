@@ -10,7 +10,7 @@ function FormAddress(props){
 
     return(
         <div>
-            <h1>Address</h1>
+            <h1>Address*</h1>
             <input
             type="text"
             placeholder="Enter address..."

@@ -1,11 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import DeleteButton from "./DeleteButton"
-
-
 
 function HomeCard({  address, electric, gas, mortgage, rent, step, tenanted, water, id }) {
-const tempImgUrl = "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?output=thumbnail&cb_client=maps_sv.tactile.gps&panoid=rpTI7Jo7WnpqqMkArgq5WQ&w=883&h=435&thumb=2&yaw=71.51634&pitch=0";
+  const tempImgUrl = "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?output=thumbnail&cb_client=maps_sv.tactile.gps&panoid=rpTI7Jo7WnpqqMkArgq5WQ&w=883&h=435&thumb=2&yaw=71.51634&pitch=0";
+
+  const deleteProperty = async(id) =>{
+    try{
+        const deleteProperty = await fetch(".../!id!",{
+            method: "DELETE"
+        });
+    } catch(err){
+        console.log(err.message);
+    }
+  }
 
   return (
     <div className="col-10 col-md-8 col-lg-7">
@@ -33,10 +40,9 @@ const tempImgUrl = "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?outp
 
         <div className="card-footer small p-0">
           <div className="w-100">
-            <DeleteButton id ={id}/>
+            <button className = "btn btn-danger w-100" onClick={()=>{deleteProperty(id)}}>Delete Property</button>
           </div>
         </div>
-        {/* <div className="card-footer small text-muted text-end">{createdAt}</div> */}
       </div>
     </div>
   );

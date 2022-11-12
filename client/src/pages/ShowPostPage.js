@@ -10,12 +10,13 @@ function ShowPostPage() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [propertyInfoBlocks, setPropertyInfoBlocks] = useState([]);
+  //array that will hold <PropertyInfoBlock/> components with each months info in them
+  const [monthInfoBlocks, setMonthInfoBlocks] = useState([]);
   let params = useParams();
 
-  const generateNewPropertyInfoBlock = e => {
+  const generateNewMonthInfoBlock = e => {
     //place a blank PropertyInfoBlock component, unpack the other components after
-      setPropertyInfoBlocks([<PropertyInfoBlock/>, ...propertyInfoBlocks]);
+      setMonthInfoBlocks([<PropertyInfoBlock/>, ...monthInfoBlocks]);
   }
 
   useEffect(() => {
@@ -25,6 +26,7 @@ function ShowPostPage() {
         let response = await fetch("/api/micro_posts/house/" + params.id);
         let postData = await response.json();
         setPost(postData);
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching /api/micro_posts/house/" + params.id, error);
@@ -54,13 +56,9 @@ function ShowPostPage() {
         <div className="col">
             {
             //TODO:
-            /*on click have a new blank propertyInfoBlock rendered ontop of the pre existing ones,
-            map over post info and create infoBlocks in a state outside
-            this return() and render it with {blah} 
-            then have the state re-rendered with [new propertyInfoBlock, 
-            old state name of propertyInfoBlock] after the click */
+            /*on click have a new blank propertyInfoBlock rendered ontop of the pre existing ones.*/
             }
-            <button className="btn btn-secondary" onClick ={generateNewPropertyInfoBlock}>+</button>
+            <button className="btn btn-secondary" onClick ={generateNewMonthInfoBlock}>+</button>
         </div>
       </div>
       <div>

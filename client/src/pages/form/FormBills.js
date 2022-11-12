@@ -15,32 +15,47 @@ function FormBills(props){
     return(
         <div>
             <h1>Utilities</h1>
-            <input
-            type="text"
-            placeholder="Enter electric..."
-            defaultValue={props.values.electric}
-            className="form-control"
-            onChange={props.handleChange("electric")}
-            autoFocus
-            />
+            <div className="input-group">
+                <div className="input-group-prepend ">
+                    <span className="input-group-text rounded-0">$</span>
+                </div>
+                <input
+                type="text"
+                placeholder="Enter electric..."
+                defaultValue={props.values.electric}
+                className="form-control"
+                onChange={props.handleChange("electric")}
+                autoFocus
+                />
+            </div>
 
-            <input
-            type="text"
-            placeholder="Enter gas..."
-            defaultValue={props.values.gas}
-            className="form-control"
-            onChange={props.handleChange("gas")}
-            autoFocus
-            />
+            <div className="input-group">
+                <div className="input-group-prepend ">
+                    <span className="input-group-text rounded-0">$</span>
+                </div>
+                <input
+                type="text"
+                placeholder="Enter gas..."
+                defaultValue={props.values.gas}
+                className="form-control"
+                onChange={props.handleChange("gas")}
+                autoFocus
+                />
+            </div>
 
-            <input
-            type="text"
-            placeholder="Enter water..."
-            defaultValue={props.values.water}
-            className="form-control"
-            onChange={props.handleChange("water")}
-            autoFocus
-            />
+            <div className="input-group">
+                <div className="input-group-prepend ">
+                    <span className="input-group-text rounded-0">$</span>
+                </div>
+                <input
+                type="text"
+                placeholder="Enter water..."
+                defaultValue={props.values.water}
+                className="form-control"
+                onChange={props.handleChange("water")}
+                autoFocus
+                />
+            </div>
 
             <button
             onClick={handleClickPrev}  

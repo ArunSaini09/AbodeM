@@ -16,7 +16,7 @@ export default function PropertyInfoBlock(props){
                     </div>
                     <div className="row">
                         <div className="col">
-                            <MortgageCard mortgage = {props.post.mortgage}/>
+                            <MortgageCard mortgage = {props.post.mortgage} mortDueDate = {props.post.mortDueDate}/>
                         </div>
                     </div>       
                 </div>

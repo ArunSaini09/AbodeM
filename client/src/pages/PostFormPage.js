@@ -52,8 +52,8 @@ function PostFormPage(props) {
 
           <ul className = "list-group">
             <li className="list-group-item">Address: {props.values.address}</li>
-            <li className="list-group-item">Rent: {props.values.rent} Rent Due: {props.values.rentDueDate}</li>
-            <li className="list-group-item">Mortgage: {props.values.mortgage}</li>
+            <li className="list-group-item">Rent: {props.values.rent} Rent due on the: {props.values.rentDueDate}</li>
+            <li className="list-group-item">Mortgage: {props.values.mortgage} Mortgage due on the: {props.values.mortDueDate}</li>
             <li className="list-group-item">Electric: {props.values.electric}</li>
             <li className="list-group-item">Gas: {props.values.gas}</li>
             <li className="list-group-item">Water: {props.values.water}</li>

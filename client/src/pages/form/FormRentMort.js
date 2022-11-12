@@ -60,17 +60,34 @@ function FormInfo(props){
                 
                 : (<></>)
             }
-            <div className="input-group">
-                <div className="input-group-prepend ">
-                    <span className="input-group-text rounded-0">$</span>
+            <div className = "row">
+                <div className="col-lg-5">
+                    <div className="input-group">
+                        <div className="input-group-prepend ">
+                            <span className="input-group-text rounded-0">$</span>
+                        </div>
+                        <input
+                        type="text"
+                        placeholder="Enter mortgage..."
+                        defaultValue={props.values.mortgage}
+                        className="form-control rounded-0"
+                        onChange={props.handleChange("mortgage")}
+                        />
+                    </div>
                 </div>
-                <input
-                type="text"
-                placeholder="Enter mortgage..."
-                defaultValue={props.values.mortgage}
-                className="form-control"
-                onChange={props.handleChange("mortgage")}
-                />
+                <div className="col-lg-2">
+                    due monthly on the 
+                </div>
+                <div className="col-lg-5"> 
+                        
+                    <input
+                    type="text"
+                    placeholder="15"
+                    className="form-control rounded-0"
+                    defaultValue={props.values.mortDueDate}
+                    onChange={props.handleChange("mort-due-date")}
+                    />
+                </div>
             </div>
 
             <button
