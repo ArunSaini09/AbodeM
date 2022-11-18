@@ -8,6 +8,7 @@ import { AuthProvider } from "./context/AuthContext";
 import "./App.css";
 import AuthButton from "./components/AuthButton";
 import SignUpButton from "./components/SignupButton";
+import LoginPage from "./pages/LoginPage";
 
 function Navigation(props) {
 	return (
@@ -43,6 +44,7 @@ function App() {
 				<div className="container-xl text-center">
 					<div className="row justify-content-center">
 						<Routes>
+							<Route path="/login" element={<LoginPage />} />
 							<Route path="/posts/new" element={<PropertyForm />} />
 							<Route path="/posts/:id" element={<ShowPostPage />} />
 							<Route path="/about-us" element={<AboutUsPage />} />
