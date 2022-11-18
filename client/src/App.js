@@ -6,6 +6,8 @@ import AboutUsPage from "./pages/AboutUsPage";
 import PropertyForm from "./pages/form/PropertyForm";
 import { AuthProvider } from "./context/AuthContext";
 import "./App.css";
+import AuthButton from "./components/AuthButton";
+import SignUpButton from "./components/SignupButton";
 
 function Navigation(props) {
 	return (
@@ -26,6 +28,8 @@ function Navigation(props) {
 						</NavLink>
 					</li>
 				</ul>
+				<AuthButton/>
+				<SignUpButton/>
 			</div>
 		</nav>
 	);
