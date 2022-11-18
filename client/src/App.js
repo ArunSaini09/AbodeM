@@ -4,6 +4,7 @@ import PostsListPage from "./pages/PostsListPage";
 import ShowPostPage from "./pages/ShowPostPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import PropertyForm from "./pages/form/PropertyForm";
+import { AuthProvider } from "./context/AuthContext";
 import "./App.css";
 
 function Navigation(props) {
@@ -32,19 +33,21 @@ function Navigation(props) {
 
 function App() {
 	return (
-		<BrowserRouter>
-			<Navigation />
-			<div className="container-xl text-center">
-				<div className="row justify-content-center">
-					<Routes>
-						<Route path="/posts/new" element={<PropertyForm />} />
-						<Route path="/posts/:id" element={<ShowPostPage />} />
-						<Route path="/about-us" element={<AboutUsPage />} />
-						<Route path="/" element={<PostsListPage />} />
-					</Routes>
+		<AuthProvider>
+			<BrowserRouter>
+				<Navigation />
+				<div className="container-xl text-center">
+					<div className="row justify-content-center">
+						<Routes>
+							<Route path="/posts/new" element={<PropertyForm />} />
+							<Route path="/posts/:id" element={<ShowPostPage />} />
+							<Route path="/about-us" element={<AboutUsPage />} />
+							<Route path="/" element={<PostsListPage />} />
+						</Routes>
+					</div>
 				</div>
-			</div>
-		</BrowserRouter>
+			</BrowserRouter>
+		</AuthProvider>
 	);
 }
 
