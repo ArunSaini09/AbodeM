@@ -3,7 +3,7 @@ const passport = require("../middlewares/authentication");
 const { TableHints } = require("sequelize");
 const router = express.Router();
 const db = require("../models");
-const { User, Bill, House, Rent } = db;
+const { User, Bill, House, Rent , Property} = db;
 
 //return json of houses based on userID
 router.get("/", passport.isAuthenticated(), (req, res) => {
