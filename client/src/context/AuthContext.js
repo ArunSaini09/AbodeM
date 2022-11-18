@@ -6,6 +6,28 @@ const { Provider } = AuthContext;
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(false);
 
+  const register =(name, email, password) =>{
+    //make request to create new user
+    return fetch("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify({name,email,password}),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((response) => {
+            if (!response.ok) {
+            throw new Error("Signup Failed");
+            }
+
+            return response.json();
+        })
+        .then((body) => {
+            setUser(body);
+            return body;
+        });
+  };
+
   const authenticate = (email, password) => {
     return fetch("/api/auth/login", {
       method: "POST",
@@ -51,6 +73,9 @@ const AuthProvider = ({ children }) => {
     <Provider
       value={{
         authenticate,
+        //////////////
+        register,
+        /////////////
         signout,
         isAuthenticated: user ? true : false,
         user,
