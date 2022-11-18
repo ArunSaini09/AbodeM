@@ -14,7 +14,7 @@ function PostsListPage() {
     async function getData() {
       setLoading(true);
       try {
-        let response = await fetch("/api/micro_posts/", {
+        let response = await fetch("/api/houses/", {
           method: "GET",
           credentials: "include",
           headers: {

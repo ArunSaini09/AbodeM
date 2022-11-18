@@ -19,7 +19,7 @@ function PostFormPage(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      let response = await fetch("/api/micro_posts/form", {
+      let response = await fetch("/api/houses/form", {
         method: "POST",
         credentials: "include",
         headers: {

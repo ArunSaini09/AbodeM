@@ -14,12 +14,12 @@ function ShowPostPage() {
     async function getData() {
       setLoading(true);
       try {
-        let response = await fetch("/api/micro_posts/" + params.id);
+        let response = await fetch("/api/house/" + params.id);
         let postData = await response.json();
         setPost(postData);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching /api/micro_posts/" + params.id, error);
+        console.error("Error fetching /api/house/" + params.id, error);
         setError(true);
       }
     }
