@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			passwordHash: {
 				type: DataTypes.STRING,
-				allowNull: false,
 			},
 			password: {
 				type: DataTypes.VIRTUAL,
