@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 			address: {
 				type: DataTypes.STRING,
 				notEmpty: true,
+				allowNull: false,
 				validate: {},
 			},
 			miscellaneous: {

@@ -3,7 +3,7 @@ const { Model } = require("sequelize");
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {}
+	class User extends Model {}
 
 	User.init(
 		{
@@ -11,17 +11,18 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				autoIncrement: true,
 				primaryKey: true,
+				allowNull:false,
 			},
 			name: {
 				type: DataTypes.STRING,
-				isNull: true,
+				allowNull: true,
 				notEmpty: true,
 				validate: {},
 			},
 			email: {
 				type: DataTypes.STRING,
 				unique: true,
-				isNull: false,
+				allowNull: false,
 				notEmpty: true,
 				validate: {
 					isEmail: true,
@@ -29,16 +30,20 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			passwordHash: {
 				type: DataTypes.STRING,
+				allowNull: false,
 			},
 			password: {
 				type: DataTypes.VIRTUAL,
-				validate: validate: {
-          isLongEnough: (val) => {
-            if (val.length < 7) {
-              throw new Error("password has be longer than 7 characters");
-            }
-          },
-        },
+				allowNull: false,
+				validate: {
+					isLongEnough: (val) => {
+						if (val.length < 7) {
+							throw new Error(
+								"password has be longer than 7 characters"
+							);
+						}
+					},
+				},		
 			},
 		},
 		{
@@ -47,20 +52,20 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	);
 
-  User.associate = (models) => {
-    User.hasMany(models.House, {
-      // foreignKey: 'user_id',
-      // as: 'OwnerID',
-      // allowNull: false
-    });
-  };
+	User.associate = (models) => {
+		User.hasMany(models.House, {
+			// foreignKey: 'user_id',
+			// as: 'OwnerID',
+			// allowNull: false
+		});
+	};
 
-  User.beforeSave((user, options) => {
-    if (user.password) {
-      user.passwordHash = bcrypt.hashSync(user.password, 10);
-      console.log(user.passwordHash);
-    }
-  });
+	User.beforeSave((user, options) => {
+		if (user.password) {
+			user.passwordHash = bcrypt.hashSync(user.password, 10);
+			console.log(user.passwordHash);
+		}
+	});
 
-  return User;
+	return User;
 };

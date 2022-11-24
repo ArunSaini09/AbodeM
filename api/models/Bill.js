@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 			billType: {
 				type: DataTypes.STRING,
 				notEmpty: true,
+				allowNull: false,
 				validate: {},
 			},
 			amount: {
