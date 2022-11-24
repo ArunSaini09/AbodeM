@@ -3,7 +3,7 @@ const { Model } = require("sequelize");
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
-	class User extends Model {}
+  class User extends Model {}
 
 	User.init(
 		{
@@ -32,7 +32,13 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			password: {
 				type: DataTypes.VIRTUAL,
-				validate: {},
+				validate: validate: {
+          isLongEnough: (val) => {
+            if (val.length < 7) {
+              throw new Error("password has be longer than 7 characters");
+            }
+          },
+        },
 			},
 		},
 		{
@@ -41,19 +47,20 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	);
 
-	User.associate = (models) => {
-		User.hasMany(models.House, {
-			// foreignKey: 'user_id',
-			// as: 'OwnerID',
-			// allowNull: false
-		});
-	};
+  User.associate = (models) => {
+    User.hasMany(models.House, {
+      // foreignKey: 'user_id',
+      // as: 'OwnerID',
+      // allowNull: false
+    });
+  };
 
-	User.beforeSave((user, options) => {
-		if (user.password) {
-			user.passwordHash = bcrypt.hashSync(user.password, 10);
-		}
-	});
+  User.beforeSave((user, options) => {
+    if (user.password) {
+      user.passwordHash = bcrypt.hashSync(user.password, 10);
+      console.log(user.passwordHash);
+    }
+  });
 
-	return User;
+  return User;
 };
