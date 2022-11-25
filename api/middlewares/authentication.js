@@ -15,6 +15,7 @@ function passwordsMatch(submittedPassword, storedPasswordHash) {
   but you may prefer to use a `username` parameter instead of an email.
   BEST PRACTICE: don't state why login failed to the user.
 */
+
 passport.use(
   new LocalStrategy(
     {
@@ -27,12 +28,12 @@ passport.use(
           if (!user) {
             console.log("\n\nFailed Login: user does not exist\n\n");
             // null = err code, false = no user object
-            return done(null, false, { message: "Failed Login" });
+            return done(null, false, { message: "Failed Login: user does not exist" });
           }
 
           if (passwordsMatch(password, user.passwordHash) === false) {
             console.log("\n\nFailed Login: passwords did not match\n\n");
-            return done(null, false, { message: "Failed Login" });
+            return done(null, false, { message: "Failed Login: passwords did not match" });
           }
 
           console.log("\n\nSuccessful Login\n\n");
@@ -45,12 +46,12 @@ passport.use(
   )
 );
 
+
 passport.serializeUser((user, done) => {
   done(null, user.dataValues.user_id);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log("deserializing with id: ", id);
   User.findByPk(id)
     .then((user) => {
       if (!user) {
@@ -67,4 +68,5 @@ passport.deserializeUser((id, done) => {
 passport.isAuthenticated = () => (req, res, next) =>
   req.user ? next() : res.sendStatus(401);
 
+  
 module.exports = passport;

@@ -52,9 +52,9 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.associate = (models) => {
 		User.hasMany(models.House, {
-			// foreignKey: 'user_id',
-			// as: 'OwnerID',
-			// allowNull: false
+			foreignKey: 'owner_id',
+			as: 'owner_id',
+			allowNull: false
 		});
 	};
 
