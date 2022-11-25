@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
 			paidOff: {
 				type: DataTypes.BOOLEAN,
 			},
+			link: {
+				type: DataTypes.STRING,
+			},
 			dueDate: {
 				type: DataTypes.DATE,
 				validate: {},

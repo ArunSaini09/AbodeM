@@ -89,11 +89,12 @@ router.post("/house/:house_id/bills", passport.isAuthenticated(), (req, res) => 
 		
 		console.log(req.body.bills);
 		req.body.bills.forEach((bill) => {
-			const { billType, amount, paidOff, dueDate } = bill;
+			const { billType, amount, paidOff, link, dueDate } = bill;
 			Bill.create({
 				billType,
 				amount,
 				paidOff,
+				link,
 				dueDate,
 				"house_id":house_id
 			}).then((savedBill) => {
@@ -175,11 +176,12 @@ router.post(
 	passport.isAuthenticated(),
 	(req, res) => {
 		const { house_id } = req.params;
-		const { billType, amount, paidOff, dueDate } = req.body;
+		const { billType, amount, paidOff, link, dueDate } = req.body;
 		Bill.create({
 			billType,
 			amount,
 			paidOff,
+			link,
 			dueDate,
 			"house_id":house_id
 		}).then((bill) => {
@@ -197,7 +199,7 @@ router.put(
 	passport.isAuthenticated(),
 	(req, res) => {
 		const { house_id, bill_id } = req.params;
-		const { billType, amount, paidOff, dueDate } = req.body;
+		const { billType, amount, paidOff, link, dueDate } = req.body;
 
 		Bill.findByPk(bill_id)
 		.then((bill) => {
@@ -209,8 +211,38 @@ router.put(
 				billType,
 				amount,
 				paidOff,
+				link,
 				dueDate,
 				house_id
+			});
+
+			bill.save()
+				.then((bill) => {
+					res.json(bill);
+				})
+				.catch((err) => {
+					res.status(400).json(err);
+				});
+		})
+	}
+);
+
+//modify a bill field in the billTable
+router.patch(
+	"/house/:house_id/bill/:bill_id",
+	passport.isAuthenticated(),
+	(req, res) => {
+		const { house_id, bill_id } = req.params;
+		const { ['house_id']:removeHouseID, ... fieldsWithoutHouseID } = req.body; //destructure out house_id to prevent it from being changed 
+
+		Bill.findByPk(bill_id)
+		.then((bill) => {
+			if (!bill) {
+				return res.sendStatus(404);
+			}
+
+			bill.set({
+				...fieldsWithoutHouseID
 			});
 
 			bill.save()
@@ -326,6 +358,35 @@ router.delete(
 				rent.destroy();
 				res.sendStatus(204);
 			});
+	}
+);
+
+//modify a rent field in the rentTable
+router.patch(
+	"/house/:house_id/rent/:rent_id",
+	passport.isAuthenticated(),
+	(req, res) => {
+		const { house_id, rent_id } = req.params;
+		const { ['house_id']:removeHouseID, ... fieldsWithoutHouseID } = req.body; //destructure out house_id to prevent it from being changed 
+
+		Rent.findByPk(rent_id)
+		.then((rent) => {
+			if (!rent) {
+				return res.sendStatus(404);
+			}
+
+			rent.set({
+				...fieldsWithoutHouseID
+			});
+
+			rent.save()
+				.then((rent) => {
+					res.json(rent);
+				})
+				.catch((err) => {
+					res.status(400).json(err);
+				});
+		})
 	}
 );
 
