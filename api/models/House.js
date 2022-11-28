@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 			address: {
 				type: DataTypes.STRING,
 				notEmpty: true,
+				allowNull: false,
+				unique: true,
 				validate: {},
 			},
 			miscellaneous: {
@@ -25,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	House.associate = (models) => {
 		House.belongsTo(models.User, {
-			foreignKey: "ownerID",
+			foreignKey: "owner_id",
 			as: "owner",
 			allowNull: false,
 		});

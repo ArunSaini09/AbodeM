@@ -9,13 +9,17 @@ module.exports = (sequelize, DataTypes) => {
 			billType: {
 				type: DataTypes.STRING,
 				notEmpty: true,
+				allowNull: false,
 				validate: {},
 			},
 			amount: {
 				type: DataTypes.INTEGER,
 			},
-			paidoff: {
+			paidOff: {
 				type: DataTypes.BOOLEAN,
+			},
+			link: {
+				type: DataTypes.STRING,
 			},
 			dueDate: {
 				type: DataTypes.DATE,
@@ -30,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	Bill.associate = (models) => {
 		Bill.belongsTo(models.House, {
-			foreignKey: "houseId",
+			foreignKey: "house_id",
 			as: "house",
 			allowNull: false,
 		});
