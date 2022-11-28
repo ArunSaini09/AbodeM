@@ -4,6 +4,8 @@ const router = express.Router();
 const db = require("../models");
 const { User } = db;
 const passport = require("passport");
+
+
 //save user login info into DB - fails if email already present
 router.post("/register", (req, res) => {
   console.log("POST body: ", req.body);
@@ -30,14 +32,6 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 });
 
 //logout user and remove cookie session
-router.get("/login", (req, res) => {
-  if (req.user) {
-    res.json(req.user);
-  } else {
-    res.sendStatus(401);
-  }
-});
-
 router.post("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) return next(err);

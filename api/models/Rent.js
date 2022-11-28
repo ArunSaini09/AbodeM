@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Rent.associate = (models) => {
     Rent.belongsTo(models.House, {
-      foreignKey: "houseId",
+      foreignKey: "house_id",
       as: "house",
       allowNull: false,
     });
