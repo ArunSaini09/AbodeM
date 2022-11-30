@@ -15,12 +15,12 @@ const AuthButton = () => {
   }
 
   const logout = () => {
-    auth.signout().then(() => navigate("/"));
+    auth.signout().then(() => navigate("/login"));
   };
 
   return (
     <div className="text-white">
-      Welcome! {auth.user.firstName}
+      Welcome! {auth.user.name}
       <button className="btn btn-primary" onClick={logout}>
         Logout
       </button>

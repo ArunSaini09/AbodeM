@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-function LoginPage() {
+function LoginPage({setAuth}) {
   const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,6 +33,7 @@ function LoginPage() {
         //    when they get to the protected page and click the back button, they
         //    won't end up back on the login page, which is also really nice for the
         //    user experience.
+        setAuth(true);
         navigate(from, { replace: true });
       })
       .catch((err) => {
@@ -51,32 +52,74 @@ function LoginPage() {
 
   return (
     <div className="col-10 col-md-8 col-lg-7">
-      <form onSubmit={login}>
-        <div className="form-row">
-          {errorMessage}
-          <input
-            type="email"
-            className="form-control"
-            name="email"
-            placeholder="Email"
-            value={data.email}
-            onChange={fieldChanged("email")}
-          />
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            placeholder="Password"
-            value={data.password}
-            onChange={fieldChanged("password")}
-          />
-          <button type="submit" className="btn btn-primary ml-auto">
-            Login
-          </button>
-        </div>
-      </form>
-    </div>
+        <form onSubmit={login}>
+          <div className="form-row">
+            {errorMessage}
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              placeholder="Email"
+              value={data.email}
+              onChange={fieldChanged("email")}
+            />
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              placeholder="Password"
+              value={data.password}
+              onChange={fieldChanged("password")}
+            />
+            <button type="submit" className="btn btn-primary ml-auto">
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
   );
 }
 
 export default LoginPage;
+
+{/*
+<div className="col-10 col-md-8 col-lg-7">
+        <form onSubmit={login}>
+          <div className="form-row">
+            {errorMessage}
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              placeholder="Email"
+              value={data.email}
+              onChange={fieldChanged("email")}
+            />
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              placeholder="Password"
+              value={data.password}
+              onChange={fieldChanged("password")}
+            />
+            <button type="submit" className="btn btn-primary ml-auto">
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/}

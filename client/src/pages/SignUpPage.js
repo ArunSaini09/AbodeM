@@ -50,7 +50,76 @@ function SignUpPage() {
   }
 
   return (
-    <div className="col-10 col-md-8 col-lg-7">
+    <section className="vh-100">
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start"  style={{backgroundColor: "hsl(0, 0%, 96%)"}}>
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            The <span className = "text-primary">easy</span> solution 
+            {/*<span class="text-primary">for your tracking needs</span>*/}
+          </h1>
+          <p style={{color: "hsl(217 10%, 50.8%)"}}>
+            Get rid of the notebooks and notepads! Sign-up and create an account 
+            now to easily manage, view, and record your homes expenses. 
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+            <div class="card-body py-5 px-md-5">
+                <div class="row">
+                  <div>
+                  <form onSubmit={signUp}>
+                    <div className="form-row">
+                      {errorMessage}
+                      <input
+                        type="text"
+                        className="form-control w-100"
+                        name="name"
+                        placeholder="name"
+                        value={data.name}
+                        onChange={fieldChanged("name")}
+                      />
+                      <input
+                        type="email"
+                        className="form-control w-100"
+                        name="email"
+                        placeholder="Email"
+                        value={data.email}
+                        onChange={fieldChanged("email")}
+                      />
+                      <input
+                        type="password"
+                        className="form-control w-100 mb-3"
+                        name="password"
+                        placeholder="Password"
+                        value={data.password}
+                        onChange={fieldChanged("password")}
+                      />
+                      </div>
+
+                      <button type="submit" class="btn btn-primary btn-block mb-4">
+                        Sign up
+                      </button>
+                    </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+</section>
+  );
+}
+
+export default SignUpPage;
+
+{/*
+<div className="col-10 col-md-8 col-lg-7">
       <form onSubmit={signUp}>
         <div className="form-row">
           {errorMessage}
@@ -84,7 +153,9 @@ function SignUpPage() {
         </div>
       </form>
     </div>
-  );
-}
 
-export default SignUpPage;
+
+
+
+
+*/}
