@@ -8,7 +8,7 @@ const SignUpButton = () => {
 
   if (!auth.isAuthenticated) {
     return (
-      <Link className="btn btn-primary" to="/signup">
+      <Link className="btn btn-primary me-1" to="/signup">
         Sign Up
       </Link>
     );
