@@ -3,30 +3,19 @@ const passport = require("../middlewares/authentication");
 const { TableHints } = require("sequelize");
 const router = express.Router();
 const db = require("../models");
+const { application } = require("express");
 const { User, Bill, House, Rent, sequelize } = db;
+const checkUserOwnsHouse = require("../middlewares/houseToUserAuthentication");
 
 
+//middleware to check if user logged in for all routes
+router.use(passport.isAuthenticated());
 
-/* 
-** middleware to verify that the specified house belongs to the current requester 
-** all routes that take in a *house/:house_id* will utilize this check first 
-*/
-router.use('*/house/:house_id*', passport.isAuthenticated(), (req, res, next) => {
-	const { user_id } = req.user.dataValues;
-	const { house_id } = req.params;
-	House.findByPk(house_id).then((house) => {
-		if (!house) {
-			return res.sendStatus(404);
-		} else if(house.dataValues.owner_id!=user_id){
-			return res.sendStatus(401);
-		} else{
-			next();
-		}
-	});
-});
+//middleware to check if house belongs to user
+router.use(checkUserOwnsHouse);
 
 //return all houses of the current user
-router.get("/", passport.isAuthenticated(), (req, res) => {
+router.get("/", (req, res) => {
 	const { user_id } = req.user.dataValues;
 	console.log(user_id);
 	House.findAll({
@@ -40,7 +29,7 @@ router.get("/", passport.isAuthenticated(), (req, res) => {
 });
 
 //return a specific house record based on house_id 
-router.get("/house/:house_id", passport.isAuthenticated(), (req, res) => {
+router.get("/house/:house_id", (req, res) => {
 	House.findByPk(house_id).then((house) => {
 		if (!house) {
 			return res.sendStatus(404);
@@ -50,7 +39,7 @@ router.get("/house/:house_id", passport.isAuthenticated(), (req, res) => {
 });
 
 // create a house with a supplied address in the body 
-router.post("/house", passport.isAuthenticated(), (req, res) => {
+router.post("/house", (req, res) => {
 	const { address } = req.body;
 	const { user_id } = req.user.dataValues;
 
@@ -64,7 +53,7 @@ router.post("/house", passport.isAuthenticated(), (req, res) => {
 });
 
 // delete a specific house based on its house_id 
-router.delete("/house/:house_id", passport.isAuthenticated(), (req, res) => {
+router.delete("/house/:house_id", (req, res) => {
 	const { house_id } = req.params;
 	House.findByPk(house_id).then((house) => {
 		if (!house) {
@@ -76,8 +65,7 @@ router.delete("/house/:house_id", passport.isAuthenticated(), (req, res) => {
 });
 
 // fill billsTable with many bill objects from a bills array in the body 
-
-router.post("/house/:house_id/bills", passport.isAuthenticated(), (req, res) => {
+router.post("/house/:house_id/bills", (req, res) => {
 	// let { electric, gas, mortgage, step, tenanted, water } = req.body;
 	const { house_id } = req.params;
 
@@ -113,7 +101,7 @@ router.post("/house/:house_id/bills", passport.isAuthenticated(), (req, res) => 
 });
 
 //get every recorded bills and rent for a specific house
-router.get("/house/:house_id/records", passport.isAuthenticated(), (req, res) => {
+router.get("/house/:house_id/records", (req, res) => {
 	const { house_id } = req.params;
 	const info = {};
 
@@ -153,7 +141,6 @@ router.get("/house/:house_id/records", passport.isAuthenticated(), (req, res) =>
 //get all bills of a specific billType for a specific house from billTable 
 router.get(
 	"/house/:house_id/bills/billType/:billType?",
-	passport.isAuthenticated(),
 	(req, res) => {
 		const { house_id, billType } = req.params;
 		Bill.findAll({
@@ -173,7 +160,6 @@ router.get(
 //add a bill to billTable
 router.post(
 	"/house/:house_id/bill",
-	passport.isAuthenticated(),
 	(req, res) => {
 		const { house_id } = req.params;
 		const { billType, amount, paidOff, link, dueDate } = req.body;
@@ -196,7 +182,6 @@ router.post(
 //update a bill in the billTable
 router.put(
 	"/house/:house_id/bill/:bill_id",
-	passport.isAuthenticated(),
 	(req, res) => {
 		const { house_id, bill_id } = req.params;
 		const { billType, amount, paidOff, link, dueDate } = req.body;
@@ -230,7 +215,6 @@ router.put(
 //modify a bill field in the billTable
 router.patch(
 	"/house/:house_id/bill/:bill_id",
-	passport.isAuthenticated(),
 	(req, res) => {
 		const { house_id, bill_id } = req.params;
 		const { ['house_id']:removeHouseID, ... fieldsWithoutHouseID } = req.body; //destructure out house_id to prevent it from being changed 
@@ -259,7 +243,6 @@ router.patch(
 //delete a bill in billTable
 router.delete(
 	"/house/:house_id/bill/:bill_id",
-	passport.isAuthenticated(),
 	(req, res) => {
 		const { bill_id } = req.params;
 		Bill.findByPk(bill_id)
@@ -276,7 +259,7 @@ router.delete(
 );
 
 //get all rents of a house from rent table
-router.get("/house/:house_id/rents", passport.isAuthenticated(), (req, res) => {
+router.get("/house/:house_id/rents", (req, res) => {
 	const { house_id } = req.params;
 	Rent.findAll({
 		where:{
@@ -293,7 +276,6 @@ router.get("/house/:house_id/rents", passport.isAuthenticated(), (req, res) => {
 //add a rent to rentTable
 router.post(
 	"/house/:house_id/rent",
-	passport.isAuthenticated(),
 	(req, res) => {
 		const { house_id } = req.params;
 		const { amount, recieved, dueDate } = req.body;
@@ -314,7 +296,6 @@ router.post(
 //modify a rent in the rentTable
 router.put(
 	"/house/:house_id/rent/:rent_id",
-	passport.isAuthenticated(),
 	(req, res) => {
 		const { house_id, rent_id } = req.params;
 		const { amount, recieved, dueDate } = req.body;
@@ -346,7 +327,6 @@ router.put(
 //delete a rent  in rentTable
 router.delete(
 	"/house/:house_id/rent/:rent_id",
-	passport.isAuthenticated(),
 	(req, res) => {
 		const { rent_id } = req.params;
 		Rent.findByPk(rent_id)
@@ -364,7 +344,6 @@ router.delete(
 //modify a rent field in the rentTable
 router.patch(
 	"/house/:house_id/rent/:rent_id",
-	passport.isAuthenticated(),
 	(req, res) => {
 		const { house_id, rent_id } = req.params;
 		const { ['house_id']:removeHouseID, ... fieldsWithoutHouseID } = req.body; //destructure out house_id to prevent it from being changed 
