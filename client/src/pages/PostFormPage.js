@@ -20,7 +20,7 @@ function PostFormPage(props) {
     event.preventDefault();
     console.log(JSON.stringify(content));
     try {
-      let response = await fetch("/api/micro_posts/form", {
+      let response = await fetch("/api/houses/form", {
         method: "POST",
         credentials: "include",
         headers: {

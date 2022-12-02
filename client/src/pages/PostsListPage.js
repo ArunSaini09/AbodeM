@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import MicroPostCard from "../components/MicroPostCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorAlert from "../components/ErrorAlert";
 import Button from "../components/Button";
@@ -14,7 +13,7 @@ function PostsListPage() {
     async function getData() {
       setLoading(true);
       try {
-        let response = await fetch("/api/micro_posts/", {
+        let response = await fetch("/api/houses/", {
           method: "GET",
           credentials: "include",
           headers: {
@@ -23,8 +22,8 @@ function PostsListPage() {
         });;
         let allPosts = await response.json();
 
-        // console.log("Fetched data");
-        // console.log(allPosts);
+        console.log("Fetched data");
+        console.log(allPosts);
 
         setPosts(allPosts);
         setLoading(false);
