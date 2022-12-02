@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route, Link, NavLink, Navigate } from "react-router-dom";
 import PostsListPage from "./pages/PostsListPage";
 import ShowPostPage from "./pages/ShowPostPage";
@@ -16,10 +16,10 @@ import PrivateRouteRequiresAuth from "./components/PrivateRoute";
 function Navigation() {
 	return (
 		<>
-			<nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
+			<nav className="navbar navbar-expand-sm navbar-light shadow mb-3">
 				<div className="container-fluid">
 					<Link className="navbar-brand" to="/">
-						Home
+						AbodeM
 					</Link>
 					<ul className="navbar-nav me-auto">
 						<li className="nav-item">
@@ -43,18 +43,6 @@ function Navigation() {
 
 function App() {
 
-	/*const [isAuthenticated, setIsAuthenticated] = useState(
-		() => JSON.parse(localStorage.getItem('auth')) || false
-	  );
-	
-	const setAuth = (value) => {
-	setIsAuthenticated(value);
-	//alert(value);
-	};
-
-	useEffect(()=>{
-	localStorage.setItem("auth", JSON.stringify(isAuthenticated));
-	}, [isAuthenticated]); */
 	const auth = useAuth();
 	
 	return (
