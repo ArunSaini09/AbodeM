@@ -23,21 +23,13 @@ function ShowPostPage() {
     async function getData() {
       setLoading(true);
       try {
-<<<<<<< HEAD
-        let response = await fetch("/api/micro_posts/house/" + params.id);
-=======
         let response = await fetch("/api/house/" + params.id);
->>>>>>> deaf891ffdd64ab51a55af37009df52ae4d119fc
         let postData = await response.json();
         setPost(postData);
 
         setLoading(false);
       } catch (error) {
-<<<<<<< HEAD
-        console.error("Error fetching /api/micro_posts/house/" + params.id, error);
-=======
         console.error("Error fetching /api/house/" + params.id, error);
->>>>>>> deaf891ffdd64ab51a55af37009df52ae4d119fc
         setError(true);
       }
     }

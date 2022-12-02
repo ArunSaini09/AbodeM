@@ -13,31 +13,6 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import PrivateRouteRequiresAuth from "./components/PrivateRoute";
 
-<<<<<<< HEAD
-
-function Navigation(props) {
-  return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          AbodeM
-        </Link>
-        <ul className="navbar-nav me-auto">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/posts/new">
-              Form
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/about-us">
-              About Us
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  );
-=======
 function Navigation() {
 	return (
 		<>
@@ -64,7 +39,6 @@ function Navigation() {
 			</nav>
 		</>
 	);
->>>>>>> deaf891ffdd64ab51a55af37009df52ae4d119fc
 }
 
 function App() {
