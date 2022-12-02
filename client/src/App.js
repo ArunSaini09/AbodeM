@@ -4,12 +4,14 @@ import PostsListPage from "./pages/PostsListPage";
 import ShowPostPage from "./pages/ShowPostPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import PropertyForm from "./pages/form/PropertyForm";
-import { AuthProvider } from "./context/AuthContext";
+import {  AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
 import "./App.css";
 import AuthButton from "./components/AuthButton";
 import SignUpButton from "./components/SignupButton";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import PrivateRouteRequiresAuth from "./components/PrivateRoute";
 
 function Navigation() {
 	return (
@@ -41,7 +43,7 @@ function Navigation() {
 
 function App() {
 
-	const [isAuthenticated, setIsAuthenticated] = useState(
+	/*const [isAuthenticated, setIsAuthenticated] = useState(
 		() => JSON.parse(localStorage.getItem('auth')) || false
 	  );
 	
@@ -52,21 +54,22 @@ function App() {
 
 	useEffect(()=>{
 	localStorage.setItem("auth", JSON.stringify(isAuthenticated));
-	}, [isAuthenticated]);
-
+	}, [isAuthenticated]); */
+	const auth = useAuth();
+	
 	return (
 		<AuthProvider>
 			<BrowserRouter>
-				<Navigation isAuthenticated={isAuthenticated}/>
+				<Navigation isAuthenticated={auth.isAuthenticated}/>
 				<div className="container-xl text-center">
 					<div className="row justify-content-center">
 						<Routes>
 							<Route path="/signup" element={<SignUpPage />} />
-							<Route path="/login" element={<LoginPage setAuth={setAuth}/>} />
-							<Route path="/posts/new" element={<PropertyForm />} />
+							<Route path="/login" element={<LoginPage />} />
+							<Route path="/posts/new" element={<PrivateRouteRequiresAuth> <PropertyForm /> </PrivateRouteRequiresAuth>} />
 							<Route path="/posts/:id" element={<ShowPostPage />} />
 							<Route path="/about-us" element={<AboutUsPage />} />
-							<Route path="/" element={ isAuthenticated ? <PostsListPage /> : <Navigate to="/login" replace /> } />
+							<Route path="/" element={ <PrivateRouteRequiresAuth> <PostsListPage /> </PrivateRouteRequiresAuth>} />
 						</Routes>
 					</div>
 				</div>

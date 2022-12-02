@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function SignUpPage() {
@@ -51,11 +51,11 @@ function SignUpPage() {
 
   return (
     <section className="vh-100">
-  <div class="px-4 py-5 px-md-5 text-center text-lg-start"  style={{backgroundColor: "hsl(0, 0%, 96%)"}}>
-    <div class="container">
-      <div class="row gx-lg-5 align-items-center">
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <h1 class="my-5 display-3 fw-bold ls-tight">
+  <div className="px-4 py-5 px-md-5 text-center text-lg-start mt-5"  style={{backgroundColor: "hsl(0, 0%, 96%)"}}>
+    <div className="container">
+      <div className="row gx-lg-5 align-items-center">
+        <div className="col-lg-6 mb-5 mb-lg-0">
+          <h1 className="my-5 display-3 fw-bold ls-tight">
             The <span className = "text-primary">easy</span> solution 
             {/*<span class="text-primary">for your tracking needs</span>*/}
           </h1>
@@ -65,10 +65,10 @@ function SignUpPage() {
           </p>
         </div>
 
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <div class="card">
-            <div class="card-body py-5 px-md-5">
-                <div class="row">
+        <div className="col-lg-6 mb-5 mb-lg-0">
+          <div className="card">
+            <div className="card-body py-5 px-md-5">
+                <div className="row">
                   <div>
                   <form onSubmit={signUp}>
                     <div className="form-row">
@@ -99,10 +99,13 @@ function SignUpPage() {
                       />
                       </div>
 
-                      <button type="submit" class="btn btn-primary btn-block mb-4">
+                      <button type="submit" className="btn btn-primary btn-block mb-4">
                         Sign up
                       </button>
                     </form>
+                    <div className="align-item-center">
+                        Already have an account? <Link to="/login">Sign-in</Link>
+                    </div>
             </div>
           </div>
         </div>
