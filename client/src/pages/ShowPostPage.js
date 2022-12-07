@@ -6,6 +6,16 @@ import PostsListPage from "./PostsListPage";
 import AddressHeader from "../components/AddressHeader";
 import PropertyInfoBlock from "../components/PropertyInfoBlock";
 
+/*
+  make call to get all rent, mortgage, bill records of property
+  render 'PropertyInfoBlocks' with the correct information
+  'onClicking' the + button, a new (possibly blank) 'PropertyInfoBlock' should be rendered ontop of the preexisting ones
+*/
+
+
+
+
+
 function ShowPostPage() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
