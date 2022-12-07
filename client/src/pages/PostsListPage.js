@@ -43,12 +43,17 @@ function PostsListPage() {
   if (error) return <ErrorAlert details="Failed to fetch all micro posts" />;
   if (loading) return <LoadingSpinner />;
 
+  const refresh = (id) => {
+    setPosts(posts.filter(post => post.id !== id))
+  }
+
+
   return (
     <div className="container-fluid text-center">
       <div className="row justify-content-center">
         <Button/>
         {posts.map((entryData) => (
-          <HomeCard {...entryData} key={entryData.id} />
+          <HomeCard {...entryData} key={entryData.id}  refresh ={refresh}/>
         ))}
       </div>
     </div>

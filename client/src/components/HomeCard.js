@@ -12,9 +12,28 @@ function HomeCard({
   tenanted,
   water,
   id,
+  refresh
 }) {
   const tempImgUrl =
     "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?output=thumbnail&cb_client=maps_sv.tactile.gps&panoid=rpTI7Jo7WnpqqMkArgq5WQ&w=883&h=435&thumb=2&yaw=71.51634&pitch=0";
+
+
+  const deleteCard = async e => {
+    e.preventDefault();
+    try{
+      const deleteCard = await fetch("/api/houses/house/" + id,{
+        method: "DELETE"
+      });
+
+      console.log(deleteCard);
+      refresh(id);
+
+    } catch(err) {
+      console.log(err.message);
+    }
+  }
+
+
 
   return (
     <div className="col-10 col-md-8 col-lg-7">
@@ -38,7 +57,7 @@ function HomeCard({
 
         <div className="card-footer small p-0">
           <div className="w-100">
-            <button className = "btn btn-danger w-100">Delete Property</button>
+            <button className = "btn btn-danger w-100" onClick={deleteCard}>Delete Property</button>
           </div>
         </div>
       </div>

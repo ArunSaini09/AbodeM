@@ -8,6 +8,13 @@ function PropertyForm() {
     const [step, setStep] = useState(1);
 
     const [address, setAddress] = useState("");
+    //
+    const [stNum, setStNum] = useState("");
+    const [stName, setStName] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zip, setZip] = useState("");
+    //
 
     const [rent, setRent] = useState("");
     const [rentDueDate, setRentDueDate] = useState("");
@@ -16,9 +23,14 @@ function PropertyForm() {
     const [mortgage, setMortgage] = useState("");
     const [mortDueDate, setMortDueDate] = useState("");
 
-    const [electric, setElectirc] = useState("");
+    const [electric, setElectric] = useState("");
+    const [electricDueDate, setElectricDueDate] = useState("");
+
     const [gas, setGas] = useState("");
+    const [gasDueDate, setGasDueDate] = useState("");
+
     const [water, setWater] = useState("");
+    const [waterDueDate, setWaterDueDate] = useState("");
 
     //proceed to next step
     const nextStep = () => {
@@ -34,26 +46,42 @@ function PropertyForm() {
     const handleChange = (input) => e => {
         if(input === "address"){
             setAddress(e.target.value);
+        }else if(input ==="st_num"){
+            setStNum(e.target.value);
+        }else if(input ==="st_name"){
+            setStName(e.target.value);
+        }else if(input ==="city"){
+            setCity(e.target.value);
+        }else if(input ==="state"){
+            setState(e.target.value);
+        }else if(input ==="zip"){
+            setZip(e.target.value);
         } else if(input ==="rent"){
             setRent(Number(e.target.value));
         } else if(input==="rent-due-date"){
-            setRentDueDate(Number(e.target.value));
+            setRentDueDate(e.target.value);
         } else if(input ==="tenanted"){
             setTenanted(!tenanted);
         } else if(input ==="mortgage"){
             setMortgage(Number(e.target.value));
         } else if(input==="mort-due-date"){
-            setMortDueDate(Number(e.target.value));
+            setMortDueDate(e.target.value);
         } else if(input ==="electric"){
-            setElectirc(Number(e.target.value));
+            setElectric(Number(e.target.value));
+        } else if(input==="electric-due-date"){
+            setElectricDueDate(e.target.value);
         } else if(input ==="gas"){
             setGas(Number(e.target.value));
+        } else if(input==="gas-due-date"){
+            setGasDueDate(e.target.value);
         } else if(input ==="water"){
             setWater(Number(e.target.value));
-        } 
+        } else if(input==="water-due-date"){
+            setWaterDueDate(e.target.value);
+        }
     }
 
-    const values = {step, address, rent, rentDueDate, tenanted, mortgage, mortDueDate, electric, gas, water};
+    const values = {step, stNum, stName, city, state, zip, address, rent, rentDueDate, tenanted, mortgage, mortDueDate, electric, electricDueDate, gas, gasDueDate, water, waterDueDate};
 
     if(step === 1){
         return(

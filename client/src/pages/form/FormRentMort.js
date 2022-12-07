@@ -15,8 +15,8 @@ function FormInfo(props){
     return(
         <div>
             <div className="mb-3">
-                <label htmlFor="rented">Is the property currently tenanted? </label>
-                <input type="checkbox" name="rented" id="rented" onChange={props.handleChange("tenanted")} checked={props.values.tenanted}/>
+                <label htmlFor="rented" >Is the property currently tenanted? </label>
+                <input type="checkbox" name="rented" id="rented"  onChange={props.handleChange("tenanted")} checked={props.values.tenanted}/>
             </div>
 
              
@@ -43,13 +43,13 @@ function FormInfo(props){
                             </div>
                         </div>
                         <div className="col-lg-2">
-                            due monthly on the 
+                            due  
                         </div>
                         <div className="col-lg-5"> 
                                 
                             <input
                             type="text"
-                            placeholder="15"
+                            placeholder="YYYY-MM-DD"
                             className="form-control rounded-0"
                             defaultValue={props.values.rentDueDate}
                             onChange={props.handleChange("rent-due-date")}
@@ -76,13 +76,13 @@ function FormInfo(props){
                     </div>
                 </div>
                 <div className="col-lg-2">
-                    due monthly on the 
+                    due  
                 </div>
                 <div className="col-lg-5"> 
                         
                     <input
                     type="text"
-                    placeholder="15"
+                    placeholder="YYYY-MM-DD"
                     className="form-control rounded-0"
                     defaultValue={props.values.mortDueDate}
                     onChange={props.handleChange("mort-due-date")}
@@ -92,13 +92,13 @@ function FormInfo(props){
 
             <button
             onClick={handleClickPrev}  
-            className="btn btn-primary">
+            className="btn btn-primary mt-2">
             Back
             </button>
 
             <button 
             onClick={handleClickNext}  
-            className="btn btn-primary">
+            className="btn btn-primary ms-2 mt-2">
             Continue
             </button>
 
