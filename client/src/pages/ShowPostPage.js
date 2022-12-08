@@ -27,11 +27,11 @@ function ShowPostPage() {
     //place a blank PropertyInfoBlock component, unpack the other components after
     setMonthInfoBlocks([
       {  
-        electricInfo : [1, false,"222222222222"],
-        gasInfo : [1, false,"222222222222"],
-        mortInfo : [1, false,"222222222222"],
-        waterInfo : [1, false,"222222222222"],
-        rentInfo : [1, false,"222222222222"]
+        electricInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[2]],
+        gasInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[2]],
+        mortInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[2]],
+        waterInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[2]],
+        rentInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[2]]
       }, ...monthInfoBlocks]);
   }
 
