@@ -44,6 +44,7 @@ router.get("/", passport.isAuthenticated(), (req, res) => {
 
 //return a specific house record based on house_id
 router.get("/house/:house_id", passport.isAuthenticated(), (req, res) => {
+  house_id = req.params.house_id;
   House.findByPk(house_id).then((house) => {
     if (!house) {
       return res.sendStatus(404);

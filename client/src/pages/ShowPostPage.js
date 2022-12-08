@@ -12,16 +12,15 @@ import PropertyInfoBlock from "../components/PropertyInfoBlock";
   'onClicking' the + button, a new (possibly blank) 'PropertyInfoBlock' should be rendered ontop of the preexisting ones
 */
 
-
-
-
-
 function ShowPostPage() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   //array that will hold <PropertyInfoBlock/> components with each months info in them
   const [monthInfoBlocks, setMonthInfoBlocks] = useState([]);
+
+  const [address, setAddress] = useState([]);
+
   let params = useParams();
 
   const generateNewMonthInfoBlock = e => {
@@ -30,26 +29,67 @@ function ShowPostPage() {
   }
 
   useEffect(() => {
-    async function getData() {
-      setLoading(true);
-      try {
-        let response = await fetch("/api/house/" + params.id);
-        let postData = await response.json();
-        setPost(postData);
+    let isMounted = true;
+    
 
-        setLoading(false);
+    async function getAddress() {
+      try {
+        let response = await fetch("/api/houses/house/" + params.id, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });;
+        let homeRecord = await response.json();
+        
+        if(response.ok)
+        {
+          setAddress(homeRecord.address);
+          getData();
+        } else {
+          setError(true);
+        }
+        
       } catch (error) {
         console.error("Error fetching /api/house/" + params.id, error);
         setError(true);
       }
     }
 
-    getData();
-
+    getAddress();
+    
     return () => {
       // clean up function
     };
   }, [params.id]);
+
+  async function getData() {
+    setLoading(true);
+    try {
+      let response = await fetch("/api/houses/house/" + params.id + "/records", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });;
+
+      let postData = await response.json();
+      
+      
+      /* console.log("postdata:");
+      console.log(postData); */
+
+      setPost(postData);
+
+      //console.log(post);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching /api/house/" + params.id + "/records", error);
+      setError(true);
+    }
+  }
 
   if (error)
     return (
@@ -60,8 +100,8 @@ function ShowPostPage() {
   return (
     <div>
       <div className="row">
-        <div className="col-10">
-          <AddressHeader address = {post.address} />
+        <div className="col-9">
+          <AddressHeader address = {address} />
         </div>
         <div className="col">
             {
@@ -72,8 +112,14 @@ function ShowPostPage() {
         </div>
       </div>
       <div>
-        <PropertyInfoBlock post={post}/>
-      </div>
+        <PropertyInfoBlock 
+        electricInfo ={[post.bills[0].amount, post.bills[0].paidOff,post.bills[0].dueDate]}
+        gasInfo = {[post.bills[1].amount, post.bills[1].paidOff,post.bills[1].dueDate]}
+        mortInfo = {[post.bills[2].amount, post.bills[2].paidOff,post.bills[2].dueDate]}
+        waterInfo = {[post.bills[3].amount, post.bills[3].paidOff,post.bills[3].dueDate]}
+        rentInfo = {[post.rents[0].amount, post.rents[0].recieved,post.rents[0].dueDate]}
+        />
+      </div> 
     </div>
   );  
 }

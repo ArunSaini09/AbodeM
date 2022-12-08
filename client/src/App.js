@@ -55,7 +55,7 @@ function App() {
 							<Route path="/signup" element={<SignUpPage />} />
 							<Route path="/login" element={<LoginPage />} />
 							<Route path="/posts/new" element={<PrivateRouteRequiresAuth> <PropertyForm /> </PrivateRouteRequiresAuth>} />
-							<Route path="/posts/:id" element={<ShowPostPage />} />
+							<Route path="/posts/:id" element={<PrivateRouteRequiresAuth> <ShowPostPage /> </PrivateRouteRequiresAuth>} />
 							<Route path="/about-us" element={<AboutUsPage />} />
 							<Route path="/" element={ <PrivateRouteRequiresAuth> <PostsListPage /> </PrivateRouteRequiresAuth>} />
 						</Routes>

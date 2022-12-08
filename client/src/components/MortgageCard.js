@@ -28,8 +28,7 @@ function MortgageCard(props){
                 </div>
 
                 <div className="col">
-                    {/* <span>Due: {props.rentDueDate}</span> */} 
-                    insert mort due date here
+                    <span>Due: {props.mortDueDate.substring(0,10)}</span> 
                 </div>
 
                 <div className="col">
