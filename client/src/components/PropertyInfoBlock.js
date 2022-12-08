@@ -3,7 +3,7 @@ import RentCard from "./RentCard";
 import MortgageCard from "./MortgageCard";
 import UtilityCard from "./UtilityCard"; 
 
-export default function PropertyInfoBlock(props){
+export default function PropertyInfoBlock({electricInfo, gasInfo, mortInfo, waterInfo, rentInfo}){
     return (
         <div>
             <div className="container">
@@ -11,20 +11,20 @@ export default function PropertyInfoBlock(props){
                 <div className="col">
                     <div className="row">
                         <div className="col">
-                        <RentCard  rent = {props.post.rent} rentDueDate = {props.post.rentDueDate}/>
+                        <RentCard  rent = {rentInfo[0]} rentDueDate = {rentInfo[2]} recieved = {rentInfo[1]}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
-                            <MortgageCard mortgage = {props.post.mortgage} mortDueDate = {props.post.mortDueDate}/>
+                            <MortgageCard mortgage = {mortInfo[0]} mortDueDate = {mortInfo[2]}/>
                         </div>
                     </div>       
                 </div>
                 <div className="col">
                     <UtilityCard 
-                    electric = {props.post.electric}
-                    gas = {props.post.gas}
-                    water = {props.post.water}
+                    electric = {electricInfo[0]}
+                    gas = {gasInfo[0]}
+                    water = {waterInfo[0]}
                     /> 
                 </div>
             </div>

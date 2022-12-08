@@ -5,7 +5,7 @@ function RentCard(props){
     const [checked, setChecked] = useState(false);
 
     const handleClick = e =>{
-        setChecked(!checked);
+        setChecked(true);
     }
 
     return(
@@ -21,7 +21,7 @@ function RentCard(props){
                 </div>
                     
             </div>
-            <div className="card-body" style={{background: checked ? "#90EE90" : ""}}>
+            <div className="card-body" style={{background: props.recieved ? "#90EE90" : ""}}>
                 <div className="row">
 
                     <div className="col">
@@ -29,12 +29,12 @@ function RentCard(props){
                     </div>
 
                     <div className="col">
-                        <span>Due: {props.rentDueDate}</span> 
+                        <span>Due: {props.rentDueDate.substring(0,10)}</span> 
                     </div>
 
                     <div className="col">
                         <input type="checkbox"
-                        checked = {checked}
+                        checked = {props.recieved}
                         onChange = {handleClick}
                         /> 
                     </div>

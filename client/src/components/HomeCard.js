@@ -14,9 +14,9 @@ function HomeCard({
   id,
   refresh
 }) {
-  const tempImgUrl =
+  /* const tempImgUrl =
     "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?output=thumbnail&cb_client=maps_sv.tactile.gps&panoid=rpTI7Jo7WnpqqMkArgq5WQ&w=883&h=435&thumb=2&yaw=71.51634&pitch=0";
-
+ */
 
   const deleteCard = async e => {
     e.preventDefault();
@@ -49,8 +49,8 @@ function HomeCard({
 
           <div className="container">
             <div className="row">
-              <li className="list-group-item col-sm">rent: {rent}</li>
-              <li className="list-group-item col-sm">mortgage: {mortgage}</li>
+              <li className="list-group-item col-sm w-100">rent: {rent}</li>
+              <li className="list-group-item col-sm w-100">mortgage: {mortgage}</li>
             </div>
           </div>
         </ul>

@@ -166,7 +166,7 @@ function PostFormPage(props) {
     }
   }
 
-  //if (success) return <Navigate to="/" />;
+  if (success) return <Navigate to="/" />;
 
   return (
     <div className="col-10 col-md-8 col-lg-7">
