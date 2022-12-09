@@ -12,122 +12,114 @@ function PostsListPage() {
   const [mortValues, setMortValues] = useState([]);
   const [rentValues, setRentValues] = useState([]);
 
-  useEffect(() => {
-    /* let isMounted = true; */
-    async function getData() {
-      setLoading(true);
-      try {
-        let response = await fetch("/api/houses/", {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });;
+  /* let isMounted = true; */
+  async function getData() {
+    setLoading(true);
+    try {
+      let response = await fetch("/api/houses/", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-        if(response.ok)
-        {
-          let allPosts = await response.json();
+      if (response.ok) {
+        let allPosts = await response.json();
 
-          setPosts(allPosts);
+        setPosts(allPosts);
 
-          const idList = [];
-          for(let i = 0; i < allPosts.length; i++)
-          {
-            idList.push(allPosts[i].id);
-          }
-          //console.log(idList);
-          setHouseIDs(idList);
-
-          //getValues();
-        } else {
-          setError(true);
+        const idList = [];
+        for (let i = 0; i < allPosts.length; i++) {
+          idList.push(allPosts[i].id);
         }
+        //console.log(idList);
+        setHouseIDs((prev) => [...prev, idList]);
 
-        
-      } catch (error) {
-        console.error("Error fetching all micro_posts", error);
+        //getValues();
+      } else {
         setError(true);
       }
-    }//end getData
+    } catch (error) {
+      console.error("Error fetching all micro_posts", error);
+      setError(true);
+    }
+  } //end getData
 
-    async function getValues()
-    {
-      const mortArr = [];
-      const rentArr = [];
-      for(let i = 0; i < houseIDs.length; i++)
-      {
-        
-        try {
-          let response = await fetch("/api/houses/house/" + houseIDs[i] + "/records", {
+  async function getValues() {
+    const mortArr = [];
+    const rentArr = [];
+    for (let i = 0; i < houseIDs.length; i++) {
+      try {
+        let response = await fetch(
+          "/api/houses/house/" + houseIDs[i] + "/records",
+          {
             method: "GET",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
             },
-          });;
-          let record = await response.json();
-          if(record.bills.length === 0)
-          {
-            mortArr.push(0);
-          } else{
-            mortArr.push(record.bills[2].amount);
           }
-          
-          if(record.rents.length === 0)
-          {
-            rentArr.push(0);
-          } else {
-            rentArr.push(record.rents[0].amount);
-          }
-          
-        } catch (error) {
-          console.error("Error fetching all mort/rent values", error);
-          setError(true);
+        );
+        let record = await response.json();
+        if (record.bills.length === 0) {
+          mortArr.push(0);
+        } else {
+          mortArr.push(record.bills[2].amount);
         }
+
+        if (record.rents.length === 0) {
+          rentArr.push(0);
+        } else {
+          rentArr.push(record.rents[0].amount);
+        }
+      } catch (error) {
+        console.error("Error fetching all mort/rent values", error);
+        setError(true);
       }
+    }
+    let newPost = posts;
+    for (let i = 0; i < newPost.length; i++) {
+      newPost[i].rent = rentArr[i];
+      newPost[i].mortgage = mortArr[i];
+    }
 
-      for(let i = 0; i < posts.length; i++)
-      {
-        posts[i].rent = rentArr[i];
-        posts[i].mortgage = mortArr[i]; 
-      }
-      
-      setPosts(posts);
-      //console.log(posts);
-      setLoading(false);
-
-    }//end getValues()
-
-    
+    setPosts((prev) => {
+      return [...prev, newPost];
+    });
+    //console.log(posts);
+    setLoading(false);
+  } //end getValues()
+  useEffect(() => {
     getData();
     getValues();
-    
+
     return () => {
       // clean up function
     };
-    // esline-disable-next-line react-hooks/exhaustive-deps
-  },[]);
-
-  
-
+  }, []); // esline-disable-next-line react-hooks/exhaustive-deps
 
   if (error) return <ErrorAlert details="Failed to fetch all micro posts" />;
   if (loading) return <LoadingSpinner />;
 
   const refresh = (id) => {
-    setPosts(posts.filter(post => post.id !== id))
-  }
-
+    setPosts(posts.filter((post) => post.id !== id));
+  };
 
   return (
     <div className="container-fluid text-center">
       <div className="row justify-content-center">
-        <Button/>
-        { posts.map((entryData) => (
-          <HomeCard  {...entryData} address = {entryData.address} rent = {entryData.rent} mortgage = {entryData.mortgage} key={entryData.id}  refresh ={refresh}/>
+        <Button />
+        {posts.map((entryData) => (
+          <HomeCard
+            {...entryData}
+            address={entryData.address}
+            rent={entryData.rent}
+            mortgage={entryData.mortgage}
+            key={entryData.id}
+            refresh={refresh}
+          />
         ))}
-       
       </div>
     </div>
   );
