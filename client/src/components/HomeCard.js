@@ -34,7 +34,7 @@ function HomeCard({
     <div className="col-10 col-md-8 col-lg-7">
       <div className="card mb-4 shadow">
         <div className="card-body card-text">
-          <Map address={address}></Map>
+          {address ? <Map address={address}></Map> : "Invalid Address"}
         </div>
 
         <ul className="list-group list-group-flush">
