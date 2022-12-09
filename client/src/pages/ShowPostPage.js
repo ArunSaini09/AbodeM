@@ -16,7 +16,7 @@ function ShowPostPage() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  //array that will hold <PropertyInfoBlock/> components with each months info in them
+  //array that will hold <PropertyInfoBlock/> component info in objects 
   const [monthInfoBlocks, setMonthInfoBlocks] = useState([]);
 
   const [address, setAddress] = useState([]);
@@ -25,7 +25,14 @@ function ShowPostPage() {
 
   const generateNewMonthInfoBlock = e => {
     //place a blank PropertyInfoBlock component, unpack the other components after
-      setMonthInfoBlocks([<PropertyInfoBlock/>, ...monthInfoBlocks]);
+    setMonthInfoBlocks([
+      {  
+        electricInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[2]],
+        gasInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[2]],
+        mortInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[2]],
+        waterInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[2]],
+        rentInfo : [monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[0], monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[1],monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[2]]
+      }, ...monthInfoBlocks]);
   }
 
   useEffect(() => {
@@ -83,6 +90,17 @@ function ShowPostPage() {
 
       setPost(postData);
 
+      //set it to an array holding an object
+      setMonthInfoBlocks([{
+        
+          electricInfo : [postData.bills[0].amount, postData.bills[0].paidOff,postData.bills[0].dueDate],
+          gasInfo : [postData.bills[1].amount, postData.bills[1].paidOff,postData.bills[1].dueDate],
+          mortInfo : [postData.bills[2].amount, postData.bills[2].paidOff,postData.bills[2].dueDate],
+          waterInfo : [postData.bills[3].amount, postData.bills[3].paidOff,postData.bills[3].dueDate],
+          rentInfo : [postData.rents[0].amount, postData.rents[0].recieved,postData.rents[0].dueDate]
+          
+    }])
+
       //console.log(post);
       setLoading(false);
     } catch (error) {
@@ -112,13 +130,12 @@ function ShowPostPage() {
         </div>
       </div>
       <div>
-        <PropertyInfoBlock 
-        electricInfo ={[post.bills[0].amount, post.bills[0].paidOff,post.bills[0].dueDate]}
-        gasInfo = {[post.bills[1].amount, post.bills[1].paidOff,post.bills[1].dueDate]}
-        mortInfo = {[post.bills[2].amount, post.bills[2].paidOff,post.bills[2].dueDate]}
-        waterInfo = {[post.bills[3].amount, post.bills[3].paidOff,post.bills[3].dueDate]}
-        rentInfo = {[post.rents[0].amount, post.rents[0].recieved,post.rents[0].dueDate]}
-        />
+        {monthInfoBlocks.map(info =>{
+          return <PropertyInfoBlock electricInfo={info.electricInfo} gasInfo ={info.gasInfo} 
+                            mortInfo = {info.mortInfo} waterInfo = {info.waterInfo}
+                            rentInfo = {info.rentInfo}
+          />
+        })}
       </div> 
     </div>
   );  

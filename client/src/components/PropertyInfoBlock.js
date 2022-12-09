@@ -5,7 +5,7 @@ import UtilityCard from "./UtilityCard";
 
 export default function PropertyInfoBlock({electricInfo, gasInfo, mortInfo, waterInfo, rentInfo}){
     return (
-        <div>
+        <div className="mt-3">
             <div className="container">
             <div className="row">
                 <div className="col">
