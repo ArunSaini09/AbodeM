@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import EditButtonMortgage from "./EditButtonMortgage";
 
 function MortgageCard(props) {
+  const {mortgage, mortDueDate, mortId} = props;
   const [checked, setChecked] = useState(false);
-  const [newMortgage, setNewMortgage] = useState(props.mortgage);
+  const [newMortgage, setNewMortgage] = useState(mortgage);
   const handleClick = (e) => {
     setChecked(!checked);
   };
@@ -20,8 +21,8 @@ function MortgageCard(props) {
           </div>
           <div className="col">
             <EditButtonMortgage
-              mortgage={props.mortgage}
-              mortId={props.mortId}
+              mortgage={mortgage}
+              mortId={mortId}
               refresh={refresh}
             />
           </div>
@@ -32,10 +33,10 @@ function MortgageCard(props) {
         style={{ background: checked ? "#90EE90" : "" }}
       >
         <div className="row">
-          <div className="col">Amount: {newMortgage}</div>
+          <div className="col">Amount: {`$${newMortgage}`}</div>
 
           <div className="col">
-            <span>Due: {props.mortDueDate.substring(0, 10)}</span>
+            <span>Due: { mortDueDate == null ? "Due Date Not Entered" : mortDueDate.substring(0, 10)}</span>
           </div>
 
           <div className="col">

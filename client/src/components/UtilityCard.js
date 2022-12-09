@@ -16,9 +16,9 @@ function UtilityCard(props){
         </div>
         <div className="card-body">
             <ul className="list-group list-group-flush">
-                <li className="list-group-item">Electric: {props.electric}</li>
-                <li className="list-group-item">Water: {props.water}</li>
-                <li className="list-group-item">Gas: {props.gas}</li>
+                <li className="list-group-item">Electric: {`$${props.electric}`}</li>
+                <li className="list-group-item">Water: {`$${props.water}`}</li>
+                <li className="list-group-item">Gas: {`$${props.gas}`}</li>
             </ul>   
         </div>
     </div>

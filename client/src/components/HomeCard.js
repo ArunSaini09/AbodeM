@@ -4,13 +4,10 @@ import Map from "./Map";
 
 function HomeCard({
   address,
-  electric,
-  gas,
+  bills,
+  rents,
   mortgage,
   rent,
-  step,
-  tenanted,
-  water,
   id,
   refresh
 }) {
@@ -27,12 +24,10 @@ function HomeCard({
 
       console.log(deleteCard);
       refresh(id);
-
     } catch(err) {
       console.log(err.message);
     }
   }
-
 
 
   return (
@@ -49,8 +44,8 @@ function HomeCard({
 
           <div className="container">
             <div className="row">
-              <li className="list-group-item col-sm w-100">rent: {rent}</li>
-              <li className="list-group-item col-sm w-100">mortgage: {mortgage}</li>
+              <li className="list-group-item col-sm w-100">Rent: {rent ? `$${rent.amount}` : "Not Yet Entered" }</li>
+              <li className="list-group-item col-sm w-100">Mortgage: {mortgage ? `$${mortgage.amount}` : "Not Yet Entered" }</li>
             </div>
           </div>
         </ul>

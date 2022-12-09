@@ -5,6 +5,7 @@ import ShowPostPage from "./pages/ShowPostPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import PropertyForm from "./pages/form/PropertyForm";
 import {  AuthProvider } from "./context/AuthContext";
+import {  HouseDataProvider } from "./context/HouseDataContext";
 import { useAuth } from "./context/AuthContext";
 import "./App.css";
 import AuthButton from "./components/AuthButton";
@@ -42,26 +43,27 @@ function Navigation() {
 }
 
 function App() {
-
 	const auth = useAuth();
 	
 	return (
 		<AuthProvider>
-			<BrowserRouter>
-				<Navigation isAuthenticated={auth.isAuthenticated}/>
-				<div className="container-xl text-center">
-					<div className="row justify-content-center">
-						<Routes>
-							<Route path="/signup" element={<SignUpPage />} />
-							<Route path="/login" element={<LoginPage />} />
-							<Route path="/posts/new" element={<PrivateRouteRequiresAuth> <PropertyForm /> </PrivateRouteRequiresAuth>} />
-							<Route path="/posts/:id" element={<PrivateRouteRequiresAuth> <ShowPostPage /> </PrivateRouteRequiresAuth>} />
-							<Route path="/about-us" element={<AboutUsPage />} />
-							<Route path="/" element={ <PrivateRouteRequiresAuth> <PostsListPage /> </PrivateRouteRequiresAuth>} />
-						</Routes>
+			<HouseDataProvider>
+				<BrowserRouter>
+					<Navigation isAuthenticated={auth.isAuthenticated}/>
+					<div className="container-xl text-center">
+						<div className="row justify-content-center">
+							<Routes>
+								<Route path="/signup" element={<SignUpPage />} />
+								<Route path="/login" element={<LoginPage />} />
+								<Route path="/posts/new" element={<PrivateRouteRequiresAuth> <PropertyForm /> </PrivateRouteRequiresAuth>} />
+								<Route path="/posts/:id" element={<PrivateRouteRequiresAuth> <ShowPostPage /> </PrivateRouteRequiresAuth>} />
+								<Route path="/about-us" element={<AboutUsPage />} />
+								<Route path="/" element={ <PrivateRouteRequiresAuth> <PostsListPage /> </PrivateRouteRequiresAuth>} />
+							</Routes>
+						</div>
 					</div>
-				</div>
-			</BrowserRouter>
+				</BrowserRouter>
+			</HouseDataProvider>
 		</AuthProvider>
 	);
 }

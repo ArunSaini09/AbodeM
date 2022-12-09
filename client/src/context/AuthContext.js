@@ -59,6 +59,7 @@ const AuthProvider = ({ children }) => {
         return response.json();
       })
       .then((body) => {
+        console.log(body);
         setUser(body);
         return body;
       });

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import PostsListPage from "./PostsListPage";
 import AddressHeader from "../components/AddressHeader";
 import PropertyInfoBlock from "../components/PropertyInfoBlock";
+import { useHouseData } from "../context/HouseDataContext";
 
 /*
   make call to get all rent, mortgage, bill records of property
@@ -13,9 +14,14 @@ import PropertyInfoBlock from "../components/PropertyInfoBlock";
 */
 
 function ShowPostPage() {
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const houseData = useHouseData();
+  const {loading, setLoading} = houseData;
+	const {error, setError} = houseData;
+	const {userHouses, setUserHouses} = houseData;
+
+  const [house, setHouse] = useState({});
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(false);
   //array that will hold <PropertyInfoBlock/> component info in objects
   const [monthInfoBlocks, setMonthInfoBlocks] = useState([]);
   const [address, setAddress] = useState([]);
@@ -25,38 +31,7 @@ function ShowPostPage() {
   const generateNewMonthInfoBlock = (e) => {
     //place a blank PropertyInfoBlock component, unpack the other components after
     setMonthInfoBlocks([
-      {
-        electricInfo: [
-          monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[0],
-          monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[1],
-          monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[2],
-          monthInfoBlocks[monthInfoBlocks.length - 1].electricInfo[3],
-        ],
-        gasInfo: [
-          monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[0],
-          monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[1],
-          monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[2],
-          monthInfoBlocks[monthInfoBlocks.length - 1].gasInfo[3],
-        ],
-        mortInfo: [
-          monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[0],
-          monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[1],
-          monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[2],
-          monthInfoBlocks[monthInfoBlocks.length - 1].mortInfo[3],
-        ],
-        waterInfo: [
-          monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[0],
-          monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[1],
-          monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[2],
-          monthInfoBlocks[monthInfoBlocks.length - 1].waterInfo[3],
-        ],
-        rentInfo: [
-          monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[0],
-          monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[1],
-          monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[2],
-          monthInfoBlocks[monthInfoBlocks.length - 1].rentInfo[3],
-        ],
-      },
+      monthInfoBlocks[0],
       ...monthInfoBlocks,
     ]);
   };
@@ -64,20 +39,21 @@ function ShowPostPage() {
   useEffect(() => {
     let isMounted = true;
 
-    async function getAddress() {
+    console.log("User houses on first render: ", userHouses);
+    console.log("House id: ", params.id);
+    console.log("user house id: ", userHouses[0].id);
+    getHouse();
+    async function getHouse() {
       try {
-        let response = await fetch("/api/houses/house/" + params.id, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        let homeRecord = await response.json();
+        
+        const tempHouse = userHouses.find((house) => house.id === parseInt(params.id));
+        console.log("Found the temp house: ", tempHouse);
 
-        if (response.ok) {
-          setAddress(homeRecord.address);
-          getData();
+        if (house) {
+          setAddress(house.address);
+          setHouse(tempHouse);
+          getData(tempHouse);
+          console.log(tempHouse);
         } else {
           setError(true);
         }
@@ -86,70 +62,26 @@ function ShowPostPage() {
         setError(true);
       }
     }
-
-    getAddress();
-
     return () => {
       // clean up function
     };
-  }, [params.id]);
+  }, []);
 
-  async function getData() {
+  async function getData(house) {
     setLoading(true);
     try {
-      let response = await fetch(
-        "/api/houses/house/" + params.id + "/records",
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      let postData = await response.json();
-
-      /* console.log("postdata:");
-      console.log(postData); */
-
-      setPost(postData);
-
       //set it to an array holding an object
-      setMonthInfoBlocks([
-        {
-          electricInfo: [
-            postData.bills[0].amount,
-            postData.bills[0].paidOff,
-            postData.bills[0].dueDate,
-            postData.bills[0].id,
-          ],
-          gasInfo: [
-            postData.bills[1].amount,
-            postData.bills[1].paidOff,
-            postData.bills[1].dueDate,
-            postData.bills[1].id,
-          ],
-          mortInfo: [
-            postData.bills[2].amount,
-            postData.bills[2].paidOff,
-            postData.bills[2].dueDate,
-            postData.bills[2].id,
-          ],
-          waterInfo: [
-            postData.bills[3].amount,
-            postData.bills[3].paidOff,
-            postData.bills[3].dueDate,
-            postData.bills[3].id,
-          ],
-          rentInfo: [
-            postData.rents[0].amount,
-            postData.rents[0].received,
-            postData.rents[0].dueDate,
-            postData.rents[0].id,
-          ],
-        },
-      ]);
+      const billTypes = ["Gas", "Mortgage", "Water", "Electric"]
+      const tempMonthInfoObject = {};
+      for(const billType of billTypes){
+        const bill = house.bills?.find((bill) => bill.billType === billType);
+        console.log("found bill: ", bill);
+        tempMonthInfoObject[billType.toLowerCase()+"Info"] = bill;
+      }
+      tempMonthInfoObject["rentInfo"] = house.rents?.[0];
+
+
+      setMonthInfoBlocks([ tempMonthInfoObject ]);
 
       //console.log(post);
       setLoading(false);
@@ -172,7 +104,7 @@ function ShowPostPage() {
     <div>
       <div className="row">
         <div className="col-9">
-          <AddressHeader address={address} />
+          <AddressHeader address={house.address} />
         </div>
         <div className="col">
           {
@@ -188,14 +120,16 @@ function ShowPostPage() {
         </div>
       </div>
       <div>
-        {monthInfoBlocks.map((info) => {
+        {monthInfoBlocks.map((infoBlock, index) => {
+          console.log("this is the indo block: ", infoBlock);
           return (
             <PropertyInfoBlock
-              electricInfo={info.electricInfo}
-              gasInfo={info.gasInfo}
-              mortInfo={info.mortInfo}
-              waterInfo={info.waterInfo}
-              rentInfo={info.rentInfo}
+              key = {index}
+              electricInfo={infoBlock.electricInfo}
+              gasInfo={infoBlock.gasInfo}
+              mortInfo={infoBlock.mortgageInfo}
+              waterInfo={infoBlock.waterInfo}
+              rentInfo={infoBlock.rentInfo}
             />
           );
         })}

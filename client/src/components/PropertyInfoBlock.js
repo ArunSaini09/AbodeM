@@ -4,49 +4,58 @@ import MortgageCard from "./MortgageCard";
 import UtilityCard from "./UtilityCard";
 
 export default function PropertyInfoBlock({
-  electricInfo,
-  gasInfo,
-  mortInfo,
-  waterInfo,
-  rentInfo,
+	electricInfo,
+	gasInfo,
+	mortInfo,
+	waterInfo,
+	rentInfo,
 }) {
-  return (
-    <div className="mt-3">
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <div className="row">
-              <div className="col">
-                <RentCard
-                  rent={rentInfo[0]}
-                  rentDueDate={rentInfo[2]}
-                  recieved={rentInfo[1]}
-                  rentId={rentInfo[3]}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <MortgageCard
-                  mortgage={mortInfo[0]}
-                  mortDueDate={mortInfo[2]}
-                  mortId={mortInfo[3]}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <UtilityCard
-              electric={electricInfo[0]}
-              electricId={electricInfo[3]}
-              gas={gasInfo[0]}
-              gasId={gasInfo[3]}
-              water={waterInfo[0]}
-              waterId={waterInfo[3]}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+	console.log(
+		"trying to pass infos in property info block: ",
+		electricInfo,
+		gasInfo,
+		mortInfo,
+		waterInfo,
+		rentInfo
+	);
+
+	return (
+		<div className="mt-3">
+			<div className="container">
+				<div className="row">
+					<div className="col">
+						<div className="row">
+							<div className="col">
+								<RentCard
+									rent={rentInfo.amount}
+									rentDueDate={rentInfo.dueDate}
+									recieved={rentInfo.recieved}
+									rentId={rentInfo.id}
+								/>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col">
+								<MortgageCard
+									mortgage={mortInfo.amount}
+									mortDueDate={mortInfo.dueDate}
+									mortId={mortInfo.id}
+								/>
+							</div>
+						</div>
+					</div>
+					<div className="col">
+						<UtilityCard
+							electric={electricInfo.amount}
+							electricId={electricInfo.id}
+							gas={gasInfo.amount}
+							gasId={gasInfo.id}
+							water={waterInfo.amount}
+							waterId={waterInfo.id}
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
