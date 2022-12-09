@@ -144,7 +144,7 @@ function ShowPostPage() {
           ],
           rentInfo: [
             postData.rents[0].amount,
-            postData.rents[0].recieved,
+            postData.rents[0].received,
             postData.rents[0].dueDate,
             postData.rents[0].id,
           ],

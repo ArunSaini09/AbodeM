@@ -24,7 +24,7 @@ function RentCard(props) {
       </div>
       <div
         className="card-body"
-        style={{ background: props.recieved ? "#90EE90" : "" }}
+        style={{ background: props.received ? "#90EE90" : "" }}
       >
         <div className="row">
           <div className="col">
@@ -38,7 +38,7 @@ function RentCard(props) {
           <div className="col">
             <input
               type="checkbox"
-              checked={props.recieved}
+              checked={props.received}
               onChange={handleClick}
             />
           </div>
