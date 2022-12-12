@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorAlert from "../components/ErrorAlert";
 import { useParams } from "react-router-dom";
-import PostsListPage from "./HomePage";
+import PostsListPage from "./HomeListPage";
 import AddressHeader from "../components/AddressHeader";
 import PropertyInfoBlock from "../components/PropertyInfoBlock";
 import { useHouseData } from "../context/HouseDataContext";
@@ -34,8 +34,6 @@ function ShowHomePage() {
 	};
 
 	useEffect(() => {
-		let isMounted = true;
-
 		console.log("User houses on first render: ", userHouses);
 		console.log("House id: ", params.id);
 
@@ -47,9 +45,7 @@ function ShowHomePage() {
 		getHouse();
 		async function getHouse() {
 			try {
-				const tempHouse = userHouses.find(
-					(house) => house.id === parseInt(params.id)
-				);
+				const tempHouse = userHouses.find((house) => house.id === parseInt(params.id));
 				console.log("Found the temp house: ", tempHouse);
 
 				if (house) {
@@ -77,9 +73,7 @@ function ShowHomePage() {
 			const billTypes = ["Gas", "Mortgage", "Water", "Electric"];
 			const tempMonthInfoObject = {};
 			for (const billType of billTypes) {
-				const bill = house.bills?.find(
-					(bill) => bill.billType === billType
-				);
+				const bill = house.bills?.find((bill) => bill.billType === billType);
 				console.log("found bill: ", bill);
 				tempMonthInfoObject[billType.toLowerCase() + "Info"] = bill;
 			}
@@ -90,20 +84,12 @@ function ShowHomePage() {
 			//console.log(post);
 			setLoading(false);
 		} catch (error) {
-			console.error(
-				"Error fetching /api/house/" + params.id + "/records",
-				error
-			);
+			console.error("Error fetching /api/house/" + params.id + "/records", error);
 			setError(true);
 		}
 	}
 
-	if (error)
-		return (
-			<ErrorAlert
-				details={"Micro post with id=" + params.id + " not found"}
-			/>
-		);
+	if (error) return <ErrorAlert details={"Micro post with id=" + params.id + " not found"} />;
 	if (loading) return <LoadingSpinner />;
 
 	return (
@@ -113,14 +99,7 @@ function ShowHomePage() {
 					<AddressHeader address={house.address} />
 				</div>
 				<div className="col">
-					{
-						//TODO:
-						/*on click have a new blank propertyInfoBlock rendered ontop of the pre existing ones.*/
-					}
-					<button
-						className="btn btn-secondary"
-						onClick={generateNewMonthInfoBlock}
-					>
+					<button className="btn btn-secondary" onClick={generateNewMonthInfoBlock}>
 						+
 					</button>
 				</div>

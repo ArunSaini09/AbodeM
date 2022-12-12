@@ -1,10 +1,13 @@
 import React, { useState, useEffect, createContext } from "react";
 import { useLocation, Navigate } from 'react-router-dom';
+import { useAuth } from "../context/AuthContext";
+
 
 const HouseDataContext = createContext();
 const { Provider } = HouseDataContext;
 
 const HouseDataProvider = ({ children }) => {
+	const auth = useAuth();
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [userHouses, setUserHouses] = useState([]);
@@ -12,13 +15,13 @@ const HouseDataProvider = ({ children }) => {
 
 
 	useEffect(() => {
-		console.log("use effect of HouseData Context called");
-		getUserHouses();
+		if(auth.isAuthenticated)
+			getUserHouses();
 
         return () => {
             // clean up function
         };
-	}, []);
+	}, [auth.isAuthenticated]);
 
 	async function getUserHouses() {
 		console.log("getUserHouses called");

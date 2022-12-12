@@ -5,7 +5,7 @@ import Button from "../components/AddPropertyButton";
 import HomeCard from "../components/HomeCard";
 import { useHouseData } from "../context/HouseDataContext";
 
-function HomePage() {
+function HomeListPage() {
 	const houseData = useHouseData();
 
 	console.log("Trying to render postListsPage");
@@ -59,4 +59,4 @@ function HomePage() {
 	);
 }
 
-export default HomePage;
+export default HomeListPage;

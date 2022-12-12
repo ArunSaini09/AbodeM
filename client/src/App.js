@@ -10,8 +10,8 @@ import SignUpButton from "./components/SignupButton";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import PrivateRouteRequiresAuth from "./components/PrivateRoute";
-import HomePage from "./pages/HomePage";
-import ShowHomePage from "./pages/ShowHomePage";
+import HomeListPage from "./pages/HomeListPage";
+import SingleHomePage from "./pages/SingleHomePage";
 import PropertyForm from "./pages/form/PropertyForm";
 
 function Navigation() {
@@ -49,16 +49,16 @@ function App() {
 		<AuthProvider>
 			<BrowserRouter>
 				<Navigation isAuthenticated={auth.isAuthenticated}/>
-				<HouseDataProvider>
+				<HouseDataProvider isAuthenticated={auth.isAuthenticated}>
 					<div className="container-xl text-center">
 						<div className="row justify-content-center">
 							<Routes>
 								<Route path="/signup" element={<SignUpPage />} />
 								<Route path="/login" element={<LoginPage />} />
-								<Route path="/form/new" element={ <PrivateRouteRequiresAuth> <PropertyForm /> </PrivateRouteRequiresAuth> } />
-								<Route path="/home/:id" element={ <PrivateRouteRequiresAuth> <ShowHomePage /> </PrivateRouteRequiresAuth> } />
-								<Route path="/about-us" element={ <PrivateRouteRequiresAuth> <AboutUsPage /> </PrivateRouteRequiresAuth>} />
-								<Route path="/" element={ <HomePage />} />
+								<Route path="/form/new" element={ <PrivateRouteRequiresAuth><PropertyForm /></PrivateRouteRequiresAuth> } />
+								<Route path="/home/:id" element={ <PrivateRouteRequiresAuth><SingleHomePage /></PrivateRouteRequiresAuth> } />
+								<Route path="/about-us" element={ <PrivateRouteRequiresAuth><AboutUsPage /></PrivateRouteRequiresAuth>} />
+								<Route path="/" element={ <PrivateRouteRequiresAuth><HomeListPage /></PrivateRouteRequiresAuth>} />
 							</Routes>
 						</div>
 					</div>
