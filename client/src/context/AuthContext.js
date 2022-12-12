@@ -5,42 +5,42 @@ const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(false);
-
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
     fetch("/api/auth/login")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Unauthenticated");
         }
-
         return response.json();
       })
-      .then((body) => setUser(body))
+      .then((body) => {
+        setIsAuthenticated(true);
+        return setUser(body);
+      })
       .catch((err) => setUser(false));
   }, []);
 
-
-
-  const register =(name, email, password) =>{
+  const register = (name, email, password) => {
     //make request to create new user
     return fetch("/api/auth/register", {
-        method: "POST",
-        body: JSON.stringify({name,email,password}),
-        headers: {
-            "Content-Type": "application/json",
-        },
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
-        .then((response) => {
-            if (!response.ok) {
-            throw new Error("Signup Failed");
-            }
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Signup Failed");
+        }
 
-            return response.json();
-        })
-        .then((body) => {
-            setUser(body);
-            return body;
-        });
+        return response.json();
+      })
+      .then((body) => {
+        setUser(body);
+        return body;
+      });
   };
 
   const authenticate = (email, password) => {
@@ -91,7 +91,7 @@ const AuthProvider = ({ children }) => {
         authenticate,
         register,
         signout,
-        isAuthenticated: user ? true : false,
+        isAuthenticated,
         user,
       }}
     >
