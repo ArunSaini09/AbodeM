@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorAlert from "../components/ErrorAlert";
-import Button from "../components/Button";
+import Button from "../components/AddPropertyButton";
 import HomeCard from "../components/HomeCard";
 import { useHouseData } from "../context/HouseDataContext";
 
@@ -14,11 +14,13 @@ function HomePage() {
 	const { userHouses, setUserHouses } = houseData;
 
 	useEffect(() => {
+		if(userHouses)
+			setError(false);
 
 		return () => {
 			// clean up function
 		};
-	}, []);
+	}, [userHouses]);
 
 	if (error)
 		return <ErrorAlert details="Failed to fetch all micro userHouses" />;

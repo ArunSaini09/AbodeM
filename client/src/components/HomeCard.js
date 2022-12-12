@@ -40,7 +40,7 @@ function HomeCard({
 
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
-            Address: <Link to={"/posts/" + id}>{address}</Link>
+            Address: <Link to={"/home/" + id}>{address}</Link>
           </li>
 
           <div className="container">

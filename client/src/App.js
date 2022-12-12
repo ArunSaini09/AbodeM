@@ -24,7 +24,7 @@ function Navigation() {
 					</Link>
 					<ul className="navbar-nav me-auto">
 						<li className="nav-item">
-							<NavLink className="nav-link" to="/posts/new">
+							<NavLink className="nav-link" to="/form/new">
 								Form
 							</NavLink>
 						</li>
@@ -55,9 +55,9 @@ function App() {
 							<Routes>
 								<Route path="/signup" element={<SignUpPage />} />
 								<Route path="/login" element={<LoginPage />} />
-								<Route path="/posts/new" element={ <PrivateRouteRequiresAuth> <PropertyForm /> </PrivateRouteRequiresAuth> } />
-								<Route path="/posts/:id" element={ <ShowHomePage /> } />
-								<Route path="/about-us" element={ <AboutUsPage /> } />
+								<Route path="/form/new" element={ <PrivateRouteRequiresAuth> <PropertyForm /> </PrivateRouteRequiresAuth> } />
+								<Route path="/home/:id" element={ <PrivateRouteRequiresAuth> <ShowHomePage /> </PrivateRouteRequiresAuth> } />
+								<Route path="/about-us" element={ <PrivateRouteRequiresAuth> <AboutUsPage /> </PrivateRouteRequiresAuth>} />
 								<Route path="/" element={ <HomePage />} />
 							</Routes>
 						</div>
