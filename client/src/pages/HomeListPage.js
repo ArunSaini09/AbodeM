@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorAlert from "../components/ErrorAlert";
-import Button from "../components/Button";
+import Button from "../components/AddPropertyButton";
 import HomeCard from "../components/HomeCard";
 import { useHouseData } from "../context/HouseDataContext";
 
-function PostsListPage() {
-  const houseData = useHouseData();
+function HomeListPage() {
+	const houseData = useHouseData();
 
 	console.log("Trying to render postListsPage");
-	const {loading, setLoading} = houseData;
-	const {error, setError} = houseData;
-	const {userHouses, setUserHouses} = houseData;
+	const { loading, setLoading } = houseData;
+	const { error, setError } = houseData;
+	const { userHouses, setUserHouses } = houseData;
 
 	useEffect(() => {
-		/* let isMounted = true; */
-		
-      console.log(houseData);
-      houseData.getUserHouses();
-			return () => {
-				// clean up function
-			};
-		}, []);
+		if(userHouses)
+			setError(false);
+
+		return () => {
+			// clean up function
+		};
+	}, [userHouses]);
 
 	if (error)
 		return <ErrorAlert details="Failed to fetch all micro userHouses" />;
+
 	if (loading) return <LoadingSpinner />;
 
 	const refresh = (id) => {
@@ -59,4 +59,4 @@ function PostsListPage() {
 	);
 }
 
-export default PostsListPage;
+export default HomeListPage;

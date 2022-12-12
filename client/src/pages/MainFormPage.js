@@ -17,7 +17,7 @@ so you can stay on the confirm page and debug easier
 
 */
 
-function PostFormPage(props) {
+function MainFormPage(props) {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [homeID, setHomeID] = useState("");
@@ -219,4 +219,4 @@ function PostFormPage(props) {
   );
 }
 
-export default PostFormPage;
+export default MainFormPage;

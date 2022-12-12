@@ -1,18 +1,27 @@
 import React, { useState, useEffect, createContext } from "react";
+import { useLocation, Navigate } from 'react-router-dom';
+import { useAuth } from "../context/AuthContext";
+
 
 const HouseDataContext = createContext();
 const { Provider } = HouseDataContext;
 
 const HouseDataProvider = ({ children }) => {
+	const auth = useAuth();
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [userHouses, setUserHouses] = useState([]);
+	let location = useLocation();
+
 
 	useEffect(() => {
-		/* let isMounted = true; */
-		console.log("use effect called");
-		getUserHouses();
-	}, []);
+		if(auth.isAuthenticated)
+			getUserHouses();
+
+        return () => {
+            // clean up function
+        };
+	}, [auth.isAuthenticated]);
 
 	async function getUserHouses() {
 		console.log("getUserHouses called");
@@ -35,7 +44,7 @@ const HouseDataProvider = ({ children }) => {
 				setError(true);
 			}
 		} catch (error) {
-			console.error("Error fetching all micro_posts", error);
+			console.error("Error fetching all user houses", error);
 			setError(true);
 		}
 	} //end getUserHouses
@@ -95,13 +104,13 @@ const HouseDataProvider = ({ children }) => {
 				if (numFetchesFinished === numUserHouses) {
 					setUserHouses(tempHousesArray);
 					console.log("After setting: ", [tempHousesArray]);
+                    setLoading(false);
 				}
 			} catch (error) {
-				console.error("Error fetching all mort/rent values", error);
+				console.error("Error fetching all house records", error);
 				setError(true);
 			}
 
-			setLoading(false);
 		}
 	}
 

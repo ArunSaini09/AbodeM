@@ -4,22 +4,33 @@ const AuthContext = createContext();
 const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }) => {
+  const [recievedAuthenticationResponse, setRecievedAuthenticationResponse] =
+    useState(false);
   const [user, setUser] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   useEffect(() => {
+    checkAuthentication();
+  }, []);
+
+  const checkAuthentication = () => {
     fetch("/api/auth/login")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Unauthenticated");
         }
+        console.log("User authenticated");
         return response.json();
       })
       .then((body) => {
-        setIsAuthenticated(true);
-        return setUser(body);
+        console.log("successfully authenticated", body);
+        setUser(body);
       })
-      .catch((err) => setUser(false));
-  }, []);
+      .catch((err) => {
+        console.log("unable to be authenticated");
+        setUser(false);
+      })
+      .finally(() => setRecievedAuthenticationResponse(true));
+  };
 
   const register = (name, email, password) => {
     //make request to create new user
@@ -91,8 +102,9 @@ const AuthProvider = ({ children }) => {
         authenticate,
         register,
         signout,
-        isAuthenticated,
+        isAuthenticated: user ? true : false,
         user,
+        recievedAuthenticationResponse,
       }}
     >
       {children}

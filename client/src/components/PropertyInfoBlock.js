@@ -27,19 +27,20 @@ export default function PropertyInfoBlock({
 						<div className="row">
 							<div className="col">
 								<RentCard
-									rent={rentInfo.amount}
-									rentDueDate={rentInfo.dueDate}
-									recieved={rentInfo.recieved}
-									rentId={rentInfo.id}
+									amount={rentInfo.amount}
+									dueDate={rentInfo.dueDate}
+									fulfilled={rentInfo.recieved}
+									id={rentInfo.id}
 								/>
 							</div>
 						</div>
 						<div className="row">
 							<div className="col">
 								<MortgageCard
-									mortgage={mortInfo.amount}
-									mortDueDate={mortInfo.dueDate}
-									mortId={mortInfo.id}
+									amount={mortInfo.amount}
+									dueDate={mortInfo.dueDate}
+									fulfilled = {mortInfo.paidOff}
+									id={mortInfo.id}
 								/>
 							</div>
 						</div>
