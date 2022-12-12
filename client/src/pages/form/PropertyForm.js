@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import FormAdress from "../form/FormAddress"
 import FormInfo from "../form/FormRentMort"
 import FormBills from "../form/FormBills"
-import PostFormPage from "../PostFormPage"
+import PostFormPage from "../MainFormPage"
 
 function PropertyForm() {
     const [step, setStep] = useState(1);

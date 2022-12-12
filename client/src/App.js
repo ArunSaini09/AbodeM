@@ -1,9 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link, NavLink, Navigate } from "react-router-dom";
-import PostsListPage from "./pages/PostsListPage";
-import ShowPostPage from "./pages/ShowPostPage";
 import AboutUsPage from "./pages/AboutUsPage";
-import PropertyForm from "./pages/form/PropertyForm";
 import {  AuthProvider } from "./context/AuthContext";
 import {  HouseDataProvider } from "./context/HouseDataContext";
 import { useAuth } from "./context/AuthContext";
@@ -13,6 +10,9 @@ import SignUpButton from "./components/SignupButton";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import PrivateRouteRequiresAuth from "./components/PrivateRoute";
+import HomePage from "./pages/HomePage";
+import ShowHomePage from "./pages/ShowHomePage";
+import PropertyForm from "./pages/form/PropertyForm";
 
 function Navigation() {
 	return (
@@ -47,23 +47,23 @@ function App() {
 	
 	return (
 		<AuthProvider>
-			<HouseDataProvider>
-				<BrowserRouter>
-					<Navigation isAuthenticated={auth.isAuthenticated}/>
+			<BrowserRouter>
+				<Navigation isAuthenticated={auth.isAuthenticated}/>
+				<HouseDataProvider>
 					<div className="container-xl text-center">
 						<div className="row justify-content-center">
 							<Routes>
 								<Route path="/signup" element={<SignUpPage />} />
 								<Route path="/login" element={<LoginPage />} />
-								<Route path="/posts/new" element={<PrivateRouteRequiresAuth> <PropertyForm /> </PrivateRouteRequiresAuth>} />
-								<Route path="/posts/:id" element={<PrivateRouteRequiresAuth> <ShowPostPage /> </PrivateRouteRequiresAuth>} />
-								<Route path="/about-us" element={<AboutUsPage />} />
-								<Route path="/" element={ <PrivateRouteRequiresAuth> <PostsListPage /> </PrivateRouteRequiresAuth>} />
+								<Route path="/posts/new" element={ <PrivateRouteRequiresAuth> <PropertyForm /> </PrivateRouteRequiresAuth> } />
+								<Route path="/posts/:id" element={ <ShowHomePage /> } />
+								<Route path="/about-us" element={ <AboutUsPage /> } />
+								<Route path="/" element={ <HomePage />} />
 							</Routes>
 						</div>
 					</div>
-				</BrowserRouter>
-			</HouseDataProvider>
+				</HouseDataProvider>
+			</BrowserRouter>
 		</AuthProvider>
 	);
 }

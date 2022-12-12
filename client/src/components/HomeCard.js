@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { LoadScript } from "@react-google-maps/api";
 import Map from "./Map";
 
 function HomeCard({
@@ -34,7 +35,7 @@ function HomeCard({
     <div className="col-10 col-md-8 col-lg-7">
       <div className="card mb-4 shadow">
         <div className="card-body card-text">
-          {address ? <Map address={address}></Map> : "Invalid Address"}
+          {address?.length>0 ? <Map address={address}></Map> : "Invalid Address"}
         </div>
 
         <ul className="list-group list-group-flush">

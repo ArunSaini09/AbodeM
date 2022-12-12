@@ -5,6 +5,9 @@ function PrivateRouteRequiresAuth({ children }) {
   let auth = useAuth();
   let location = useLocation();
 
+  // console.log("auth user: ", auth.user);
+  // console.log("auth is authenticated: ",auth.isAuthenticated);
+
   if (!auth.isAuthenticated) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them

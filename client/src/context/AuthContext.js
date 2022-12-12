@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
         if (!response.ok) {
           throw new Error("Unauthenticated");
         }
-
+        console.log("User authenticated");
         return response.json();
       })
       .then((body) => setUser(body))
