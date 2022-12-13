@@ -26,7 +26,9 @@ const HouseDataProvider = ({ children }) => {
 	async function getUserHouses() {
 		console.log("getUserHouses called");
 
-		setLoading(true);
+		if(!userHouses)
+			setLoading(true);
+			
 		try {
 			let response = await fetch("/api/houses/", {
 				method: "GET",
