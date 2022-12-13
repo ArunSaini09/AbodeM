@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import EditButton from "./EditButton";
+import EditRentButton from "./EditRentButton";
+
 function RentCard(props) {
   const [checked, setChecked] = useState(false);
   const [rent, setRent] = useState({...props});
@@ -16,7 +17,7 @@ function RentCard(props) {
             <h4 className="text-start">Rent</h4>
           </div>
           <div className="col">
-            <EditButton {...props} refresh={refresh} />
+            <EditRentButton {...props} refresh={refresh} />
           </div>
         </div>
       </div>

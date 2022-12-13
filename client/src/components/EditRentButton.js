@@ -7,7 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useHouseData } from "../context/HouseDataContext";
 
-export default function EditButton(props) {
+export default function EditRentButton(props) {
 	// console.log("edit button got: ", props);
 	const houseData = useHouseData();
 	const [amount, setAmount] = useState(props.amount);
