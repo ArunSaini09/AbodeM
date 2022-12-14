@@ -1,0 +1,12 @@
+.row-box{
+    padding: 0.2rem;
+    margin: 1rem;
+}
+.box-title{
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: start;
+    padding-left: 0.2rem;
+    padding-bottom: 0.1rem;
+}

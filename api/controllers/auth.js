@@ -24,6 +24,15 @@ router.post("/register", (req, res) => {
     });
 });
 
+
+router.get("/login", (req, res) => {
+  if (req.user) {
+    res.json(req.user);
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 //post login to authenticate user
 router.post("/login", passport.authenticate("local"), (req, res) => {
   // If this function gets called, authentication was successful.

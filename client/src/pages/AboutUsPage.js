@@ -34,10 +34,9 @@ function AboutUsPage(props) {
           <div className="col-lg-4">
             <h3>Jaichyi Chen</h3>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Dignissimos in itaque nihil consectetur qui natus similique
-              nostrum molestias, ipsa explicabo hic impedit aspernatur. Ipsa
-              provident neque culpa alias incidunt amet.
+              Hello, I'm Jaichyi Chen a highly motivated and passionate
+              individual currently purusing a computer science degree, at CUNY
+              Queens College.
             </p>
           </div>
         </div>
