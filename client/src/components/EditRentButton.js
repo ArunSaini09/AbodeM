@@ -12,6 +12,7 @@ export default function EditRentButton(props) {
 	const houseData = useHouseData();
 	const [amount, setAmount] = useState(props.amount);
 	const [dueDate, setDueDate] = useState(dayjs(props.dueDate));  
+	const [fulfilled, setFulFilled] = useState(props.fulfilled);
 
 	let params = useParams();
 
@@ -22,6 +23,7 @@ export default function EditRentButton(props) {
 			const body = {
 				amount: amount,
 				dueDate: dueDate,
+				recieved: fulfilled
 			};
 			const response = await fetch("/api/houses/house/" + params.id + "/rent/" + props.id, {
 				method: "PATCH",
@@ -30,8 +32,8 @@ export default function EditRentButton(props) {
 			});
 			let data = await response.json();
 			console.log("changed to", data);
-      props.refresh(data);
-      houseData.getUserHouses();
+			props.refresh(data);
+			houseData.getUserHouses();
     } catch (err) {
 			console.log(err.message);
 		}
