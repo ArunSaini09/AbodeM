@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import ErrorAlert from "../components/ErrorAlert";
 import { useAuth } from "../context/AuthContext";
-
+import "./form/Style/MainFormPage.css";
 /*
 the http request body objects are made in the 'handleContentChange' function
 
@@ -204,14 +204,18 @@ function MainFormPage(props) {
           </li>
         </ul>
 
-        <input placeholder="Confirm" onChange={handleContentChange} />
+        <input
+          placeholder="Confirm"
+          onChange={handleContentChange}
+          className="confirm-input"
+        />
 
         <br />
 
-        <button onClick={handleClickPrev} className="btn btn-primary">
+        <button onClick={handleClickPrev} className="btn btn-primary back-btn">
           Back
         </button>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary save-btn">
           Save Property
         </button>
       </form>
