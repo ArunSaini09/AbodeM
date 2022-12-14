@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         rent: {
           type: DataTypes.INTEGER,
         }, 
+        rentDueDate:{
+          type: DataTypes.INTEGER,
+        }, 
         tenanted: {
           type: DataTypes.BOOLEAN,
         }, 

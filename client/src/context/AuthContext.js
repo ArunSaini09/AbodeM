@@ -4,43 +4,54 @@ const AuthContext = createContext();
 const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }) => {
+  const [recievedAuthenticationResponse, setRecievedAuthenticationResponse] =
+    useState(false);
   const [user, setUser] = useState(false);
 
   useEffect(() => {
+    checkAuthentication();
+  }, []);
+
+  const checkAuthentication = () => {
     fetch("/api/auth/login")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Unauthenticated");
         }
+        console.log("User authenticated");
+        return response.json();
+      })
+      .then((body) => {
+        console.log("successfully authenticated", body);
+        setUser(body);
+      })
+      .catch((err) => {
+        console.log("unable to be authenticated");
+        setUser(false);
+      })
+      .finally(() => setRecievedAuthenticationResponse(true));
+  };
+
+  const register = (name, email, password) => {
+    //make request to create new user
+    return fetch("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Signup Failed");
+        }
 
         return response.json();
       })
-      .then((body) => setUser(body))
-      .catch((err) => setUser(false));
-  }, []);
-
-
-
-  const register =(name, email, password) =>{
-    //make request to create new user
-    return fetch("/api/auth/register", {
-        method: "POST",
-        body: JSON.stringify({name,email,password}),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then((response) => {
-            if (!response.ok) {
-            throw new Error("Signup Failed");
-            }
-
-            return response.json();
-        })
-        .then((body) => {
-            setUser(body);
-            return body;
-        });
+      .then((body) => {
+        setUser(body);
+        return body;
+      });
   };
 
   const authenticate = (email, password) => {
@@ -59,6 +70,7 @@ const AuthProvider = ({ children }) => {
         return response.json();
       })
       .then((body) => {
+        console.log(body);
         setUser(body);
         return body;
       });
@@ -92,6 +104,7 @@ const AuthProvider = ({ children }) => {
         signout,
         isAuthenticated: user ? true : false,
         user,
+        recievedAuthenticationResponse,
       }}
     >
       {children}
