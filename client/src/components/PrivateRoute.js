@@ -6,8 +6,6 @@ import LoadingSpinner from "./LoadingSpinner";
 function PrivateRouteRequiresAuth({ children }) {
   let auth = useAuth();
   let location = useLocation();
-  const isAuthenticated = useAuth();
-  console.log(JSON.stringify(isAuthenticated) + "yes");
 
   let { recievedAuthenticationResponse, isAuthenticated } = auth;
 
