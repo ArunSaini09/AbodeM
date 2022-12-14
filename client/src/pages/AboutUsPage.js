@@ -16,10 +16,8 @@ function AboutUsPage(props) {
           <div className="col-lg-4">
             <h3>Arun Saini</h3>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Dignissimos in itaque nihil consectetur qui natus similique
-              nostrum molestias, ipsa explicabo hic impedit aspernatur. Ipsa
-              provident neque culpa alias incidunt amet.
+              Hi, I'm Arun! I'm currently pursing a Computer Science Degree at CUNY Hunter College and like spending my free
+              time watching foregin movies and drinking flavored milks.
             </p>
           </div>
           <div className="col-lg-4">
