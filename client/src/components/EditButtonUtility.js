@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import { useParams } from "react-router-dom";
 
 export default function EditButtonMortgage(props){
-
     const [newMortgage, setNewMortgage] = useState(props.mortgage);
     let params = useParams();
 

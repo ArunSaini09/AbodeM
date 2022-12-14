@@ -27,7 +27,8 @@ export default function PropertyInfoBlock({
             <div className="row">
               <div className="col">
                 <RentCard
-                  amount={rentInfo.amount == null ? 0 : rentInfo.amount}
+                  {...rentInfo}
+                  amount={rentInfo.amount}
                   dueDate={rentInfo.dueDate}
                   fulfilled={rentInfo.recieved}
                   id={rentInfo.id}

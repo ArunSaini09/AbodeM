@@ -72,15 +72,17 @@ function ShowHomePage() {
 			//set it to an array holding an object
 			const billTypes = ["Gas", "Mortgage", "Water", "Electric"];
 			const tempMonthInfoObject = {};
+			
+			//getting the latest bills of each billType 
 			for (const billType of billTypes) {
 				const bill = house.bills?.find((bill) => bill.billType === billType);
 				console.log("found bill: ", bill);
 				tempMonthInfoObject[billType.toLowerCase() + "Info"] = bill;
 			}
+			//getting the latest rent of the month
 			tempMonthInfoObject["rentInfo"] = house.rents?.[0];
 
 			setMonthInfoBlocks([tempMonthInfoObject]);
-
 			//console.log(post);
 			setLoading(false);
 		} catch (error) {

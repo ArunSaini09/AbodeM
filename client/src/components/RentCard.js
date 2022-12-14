@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import EditButton from "./EditButton";
+import EditRentButton from "./EditRentButton";
+
 function RentCard(props) {
   const [checked, setChecked] = useState(false);
   const [rent, setRent] = useState({...props});
   //const {amount, dueDate, fulfilled, id} = props; 
 
-  const refresh = (newRent) => setRent(newRent);
+  const refresh = (...values) => setRent(...values);
   const handleClick = (e) => setChecked(true);
 
   return (
@@ -16,7 +17,7 @@ function RentCard(props) {
             <h4 className="text-start">Rent</h4>
           </div>
           <div className="col">
-            <EditButton {...props} refresh={refresh} />
+            <EditRentButton {...props} refresh={refresh} />
           </div>
         </div>
       </div>
@@ -30,7 +31,7 @@ function RentCard(props) {
           </div>
 
           <div className="col">
-            <span>Due: {props.dueDate.substring(0, 10)}</span>
+            <span>Due: {rent.dueDate.substring(0, 10)}</span>
           </div>
 
           <div className="col">

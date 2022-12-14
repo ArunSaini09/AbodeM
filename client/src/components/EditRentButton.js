@@ -1,39 +1,40 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import TextField from "@mui/material/TextField";
+import {TextField, Modal} from "@mui/material";
+import { AdapterDayjs, } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { useHouseData } from "../context/HouseDataContext";
 
-export default function EditButton(props) {
+export default function EditRentButton(props) {
 	// console.log("edit button got: ", props);
-
+	const houseData = useHouseData();
 	const [amount, setAmount] = useState(props.amount);
-	const [dueDate, setDueDate] = useState(dayjs(props.dueDate));
+	const [dueDate, setDueDate] = useState(dayjs(props.dueDate));  
+	const [fulfilled, setFulFilled] = useState(props.fulfilled);
+
 	let params = useParams();
 
 	const updateRent = async (e) => {
 		e.preventDefault();
 		try {
 			//send put request
-			//TODO: use the correct fetch url when backend is set
 			const body = {
 				amount: amount,
 				dueDate: dueDate,
+				recieved: fulfilled
 			};
-			const response = await fetch("/api/houses/house/" + params.id + "/rent/" + params.id, {
+			const response = await fetch("/api/houses/house/" + params.id + "/rent/" + props.id, {
 				method: "PATCH",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(body),
 			});
 			let data = await response.json();
-			console.log(data);
-			//TODO:
-			//need to refresh state, to reflect new change
-			//*****HERE*****//
+			console.log("changed to", data);
 			props.refresh(data);
-		} catch (err) {
+			houseData.getUserHouses();
+    } catch (err) {
 			console.log(err.message);
 		}
 	};
@@ -109,8 +110,10 @@ export default function EditButton(props) {
 											Date:
 										</label>
 									</div>
+                  
 									<div className="col-10">
 										<DateTimePicker
+                      id = "dueDateInput"
 											label="Due Date"
 											value={dueDate}
 											onChange={handleDueDateChange}
@@ -139,3 +142,5 @@ export default function EditButton(props) {
 		</>
 	);
 }
+
+
